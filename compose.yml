@@ -9,4 +9,4 @@ services:
       - .env
     volumes:
         - ./Flask:/usr/src/app
-    tty: true
+    init: true
