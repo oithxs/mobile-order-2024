@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>HISTORYページです</h1>
-</body>
-</html>
+{% extends "user/layout.html" %}
+
+{% block title %}注文履歴{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/history.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>注文履歴のページです</h1>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/user/history.js') }}"></script>
+{% endblock %}
