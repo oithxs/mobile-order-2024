@@ -42,9 +42,9 @@ def admin():
     return render_template("/admin/top.html")
 
 #/adminのシステムメッセージのページ
-@app.route('/admin/sys_msg')
+@app.route('/admin/msg')
 def system_message():
-    return render_template("/admin/system_message.html")
+    return render_template("/admin/message.html")
 
 #レイアウト確認ページ
 @app.route('/layout')
