@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock  %} - HxSのフランクフルト</title>
+    {% block css %} {% endblock %}
 </head>
+
 <body>
-    <h1>LAYOUTページです</h1>
+    <!-- ヘッダー -->
+    <header>
+        ヘッダー
+    </header>
+
+    <!-- メインコンテンツ -->
+    {% block content %} {% endblock  %}
+    
+    <!-- フッター -->
+    <footer>
+        フッター
+    </footer>
 </body>
+
 </html>
