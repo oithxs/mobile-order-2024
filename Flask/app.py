@@ -16,6 +16,11 @@ def top():
 def order():
     return render_template("/user/order.html")
 
+#注文確認ページ
+@app.route('/confirm')
+def confirm():
+    return render_template("/user/confirm.html")
+
 #注文完了のページ
 @app.route('/result',methods=['GET','POST'])
 def result():
