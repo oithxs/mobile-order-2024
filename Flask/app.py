@@ -39,7 +39,7 @@ def error():
 #/adminの閲覧ページ
 @app.route('/admin')
 def admin():
-    return render_template("/admin/manage.html")
+    return render_template("/admin/top.html")
 
 #/adminのシステムメッセージのページ
 @app.route('/admin/sys_msg')
