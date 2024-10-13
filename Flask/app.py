@@ -17,7 +17,7 @@ def order():
     return render_template("/user/order.html")
 
 #注文完了のページ
-@app.route('/result',methods=['GET'])
+@app.route('/result',methods=['GET','POST'])
 def result():
     return render_template("/user/result.html")
 
@@ -26,7 +26,17 @@ def result():
 def history():
     return render_template("/user/history.html")
 
+#エラーページ
+@app.route('/error')
+def error():
+    return render_template("/user/error.html")
+
 #/adminの閲覧ページ
 @app.route('/admin')
 def admin():
     return render_template("/admin/manage.html")
+
+#レイアウト確認ページ
+@app.route('/layout')
+def layout():
+    return render_template("/user/layout_view.html")
