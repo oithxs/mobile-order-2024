@@ -41,6 +41,11 @@ def error():
 def admin():
     return render_template("/admin/manage.html")
 
+#/adminのシステムメッセージのページ
+@app.route('/admin/sys_msg')
+def system_message():
+    return render_template("/admin/system_message.html")
+
 #レイアウト確認ページ
 @app.route('/layout')
 def layout():
