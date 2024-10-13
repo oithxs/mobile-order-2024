@@ -17,7 +17,7 @@ def order():
     return render_template("/user/order.html")
 
 #注文確認ページ
-@app.route('/confirm')
+@app.route('/confirm',methods=['GET','POST'])
 def confirm():
     return render_template("/user/confirm.html")
 
