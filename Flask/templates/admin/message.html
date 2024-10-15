@@ -1,31 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends "layout.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>システムメッセージ - HxSのフランクフルト</title>
+{% block title %}システムメッセージ{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/message.css') }}">
-</head>
+{% endblock %}
 
-<body>
-    <!-- ヘッダー -->
-    <header>
-        ヘッダー
-    </header>
+{% block content %}
+    <h1>システムメッセージのページです</h1>
+{% endblock %}
 
-    <!-- メインコンテンツ -->
-    <main>
-        <h1>システムメッセージのページです</h1>
-    </main>
-    
-    <!-- フッター -->
-    <footer>
-        フッター
-    </footer>
-
-    <!-- javascript -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/admin/message.js') }}"></script>
-</body>
-
-</html>
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin/message.js') }}"></script>
+{% endblock %}

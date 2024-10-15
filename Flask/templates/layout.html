@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock  %} - HxSのフランクフルト</title>
     {% block css %}{% endblock %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
 </head>
 
 <body>
     <!-- ヘッダー -->
     <header>
-
+        ヘッダーです
     </header>
 
     <!-- メインコンテンツ -->
@@ -20,11 +20,11 @@
     
     <!-- フッター -->
     <footer>
-
+        フッターです
     </footer>
 
     <!-- javascript -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/user/layout.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/layout.js') }}"></script>
     {% block javascript %}{% endblock %}
 </body>
 

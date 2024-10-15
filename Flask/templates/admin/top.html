@@ -1,31 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends "layout.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>管理画面 - HxSのフランクフルト</title>
+{% block title %}管理画面{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
-</head>
+{% endblock %}
 
-<body>
-    <!-- ヘッダー -->
-    <header>
-        ヘッダー
-    </header>
+{% block content %}
+    <h1>管理画面ページです</h1>
+{% endblock %}
 
-    <!-- メインコンテンツ -->
-    <main>
-        <h1>閲覧のページです</h1>
-    </main>
-    
-    <!-- フッター -->
-    <footer>
-        フッター
-    </footer>
-
-    <!-- javascript -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
-</body>
-
-</html>
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
+{% endblock %}
