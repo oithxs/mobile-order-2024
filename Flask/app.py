@@ -49,4 +49,4 @@ def system_message():
 #レイアウト確認ページ
 @app.route('/layout')
 def layout():
-    return render_template("/user/layout_view.html")
+    return render_template("/layout_view.html")
