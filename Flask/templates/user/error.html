@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}エラー{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/error.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>エラーページです</h1>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/user/error.js') }}"></script>
+{% endblock %}
