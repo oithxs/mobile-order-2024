@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request
+from Admin_view import admin_view
+import os
 
 app = Flask(__name__)
+
+app.register_blueprint(admin_view,url_prefix="/admin")
+app.secret_key = os.urandom(24)
+
 
 @app.route('/',methods=['GET'])
 def home():
@@ -35,16 +41,6 @@ def history():
 @app.route('/error')
 def error():
     return render_template("/user/error.html")
-
-#/adminの閲覧ページ
-@app.route('/admin')
-def admin():
-    return render_template("/admin/top.html")
-
-#/adminのシステムメッセージのページ
-@app.route('/admin/msg')
-def system_message():
-    return render_template("/admin/message.html")
 
 #レイアウト確認ページ
 @app.route('/layout')
