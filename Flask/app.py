@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from Admin_view import admin_view
+from admin_view import admin_view
 import os
 
 app = Flask(__name__)
