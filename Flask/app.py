@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+true = 1
 
 @app.route('/',methods=['GET'])
 def home():
@@ -9,7 +10,13 @@ def home():
 #トップページ
 @app.route('/top')
 def top():
-    return render_template("/user/top.html")
+    order_data = {
+        "count": 3,
+        "ketchup": true,
+        "mustard": true,
+        "time": "11:30"
+    }
+    return render_template("/user/top.html", order_data = order_data)
 
 #お客さんが注文するページ
 @app.route('/order')

@@ -7,7 +7,24 @@
 {% endblock %}
 
 {% block content %}
-    <h1>トップページです</h1>
+    <!-- <h1></h1> --->
+
+    <div class="appframe">
+        <h1>フランクフルト</h1>
+        <h1>モバイルオーダー</h1>
+        <p>Let's eat Frankfurt!</p>
+        <!-- a href="./order" target="_blank">スマホで注文</a><p></p -->
+        <a href="{{ url_for('order') }}" target="_blank">スマホで注文</a><p></p>
+        <a href="./error" target="_blank">注文状況を確認</a><p></p>
+        <a href="./history" target="_blank">注文履歴</a><p></p>
+        <p>フランクフルトの本数は{{order_data.count}}本です</p>
+        {% if order_data.ketchup == True %}
+            <p>ケチャップありです</p>
+        {% else %}
+            <p>ケチャップなしです</p>
+        {% endif %}
+        <script src="mp_2.js" charset="utf-8"></script>
+    </div>
 {% endblock %}
 
 {% block javascript %}
