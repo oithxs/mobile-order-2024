@@ -9,7 +9,13 @@ def home():
 #トップページ
 @app.route('/top')
 def top():
-    return render_template("/user/top.html")
+    order_data = {
+        "count": 3,
+        "ketchup": False,
+        "mustard": True,
+        "time": "13:30"
+    }
+    return render_template("/user/top.html", order_data = order_data)
 
 #お客さんが注文するページ
 @app.route('/order')
