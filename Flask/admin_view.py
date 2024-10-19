@@ -17,18 +17,29 @@ def login_required(func):
 
 @admin_view.route('/view')
 @login_required
-def admin():
-    return render_template("/admin/top.html")
+def admin(msg=None):
+    # データ取得メソッド or 関数
+    return render_template("/admin/top.html",data=data,msg=msg)
 
-@admin_view.route('/delete')
+
+@admin_view.route('/delete',methods=['POST'])
 @login_required
 def delete():
-    return redirect("/view")
+    try:
+        # データ削除メソッド or 関数
+        return redirect(url_for("admin_view.admin"),msg="delete success!")
+    except:
+        return redirect(url_for("admin_view.admin"),msg="delete error")
 
-@admin_view.route('/edit')
+
+@admin_view.route('/edit',methods=['POST'])
 @login_required
 def edit():
-    return redirect("/view")
+    try:
+        # データ書き込みメソッド or 関数
+        return redirect(url_for("admin_view.admin"),msg="edit success!")
+    except:
+        return redirect(url_for("admin_view.admin"),msg="edit error")
 
 
 @admin_view.route('/login',methods=['GET','POST'])
@@ -38,7 +49,7 @@ def login():
         password = request.form['password']
         if username == os.environ.get("USER") and password == os.environ.get("PASSWORD"):
             session["username"] = username
-            return redirect("/view")
+            return redirect(url_for("admin_view.admin"),msg="login success!")
         else:
             return render_template("/admin/login.html")
     else:
