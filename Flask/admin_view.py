@@ -4,31 +4,55 @@ import functools
 
 admin_view = Blueprint('admin_view', __name__)
 
+
 def login_required(func):
     import functools
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         if session.get("username") is None:
-            return redirect(url_for("login")) ##ここ
+            return redirect(url_for("/admin/login")) ##ここ
         else:
             return func(*args, **kwargs)
     return wrapper
 
 
-@admin_view.route('/view')
+@admin_view.route('/View')
 @login_required
-def admin():
-    return render_template("/admin/top.html")
+def view():
+    try:
+        # データ取得関数 or メソッド
+        # 引数 なし
+        return render_template("/admin/top.html")
+    except:
+        return render_template("/admin/message.html")
 
-@admin_view.route('/delete')
+
+@admin_view.route('/delete/<int:id>')
 @login_required
 def delete():
-    return redirect("/view")
+    try:
+        # データ削除関数 or メソッド
+        # 引数 id
+        return redirect(url_for("view",message="delete success"))
+    except:
+        return redirect(url_for("view",message="delete failed"))
 
-@admin_view.route('/edit')
+
+@admin_view.route('/edit/<int:id>')
 @login_required
 def edit():
-    return redirect("/view")
+    try:
+        # データ編集関数 or メソッド
+        # 引数 id
+        return redirect(url_for("view",message="edit success"))
+    except:
+        return redirect(url_for("view",message="edit failed"))
+
+
+@admin_view.route('/system/message')
+@login_required
+def message():
+    return render_template("/admin/message.html")
 
 
 @admin_view.route('/login',methods=['GET','POST'])
