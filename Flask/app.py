@@ -43,8 +43,8 @@ def destroy(id):
     message = "Destroy SQLAlchemy"
 
     # データ削除
-    order = Reservation.query.get(id)
-    db.session.delete(order)
+    reservation = Reservation.query.get(id)
+    db.session.delete(reservation)
     db.session.commit()
 
     return 'ok'
