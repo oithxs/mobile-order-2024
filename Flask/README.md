@@ -21,7 +21,7 @@
 ### reservation
 注文用テーブル<br>
 クラス名：Order<br>
-{id, 名前，本数，ケチャップ，マスタード，予約時刻｝={id, name, number, ketchup, mustard, time}
+{id, 名前，本数，ケチャップ，マスタード，予約時刻}={id, name, number, ketchup, mustard, reservationTime}
 # sample.sql
 試験用のサンプルデータです．
 mogi.sqlを読み込んでから使用してください．

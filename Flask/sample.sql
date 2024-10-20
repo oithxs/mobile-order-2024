@@ -10,6 +10,6 @@ INSERT INTO `received` (`id`, `name`, `number`) VALUES
 (2, 'KabayakiTrou', 5);
 
 
-INSERT INTO `reservation` (`id`, `name`, `number`, `ketchup`, `mustard`, `time`) VALUES
+INSERT INTO `reservation` (`id`, `name`, `number`, `ketchup`, `mustard`, `reservationTime`) VALUES
 (1, 'KodaiHanako', 3, 1, 0, '2024-10-23 23:46:21');
 

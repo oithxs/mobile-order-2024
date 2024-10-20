@@ -41,7 +41,7 @@ CREATE TABLE `reservation` (
   `number` int(11) NOT NULL,
   `ketchup` tinyint(1) NOT NULL,
   `mustard` tinyint(1) NOT NULL,
-  `time` datetime NOT NULL
+  `reservationTime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

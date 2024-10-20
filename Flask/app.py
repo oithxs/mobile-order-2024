@@ -15,7 +15,7 @@ app = Flask(__name__)
 db_uri = f'mysql+pymysql://{user}:{password}@{host}/{db}?charset=utf8'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 db = SQLAlchemy(app)
-
+# ---------------------------------------------------------------------------
 # DB生成処理
 class Reservation(db.Model):
     __tablename__ = 'reservation'
@@ -24,7 +24,8 @@ class Reservation(db.Model):
     number = db.Column(db.Integer)
     ketchup = db.Column(db.Boolean)
     mustard = db.Column(db.Boolean)
-
+    reservationTime = db.Column(db.DateTime)
+    
 class Nickname(db.Model):
     __tablename__ = 'nickname'
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -36,7 +37,7 @@ class Received(db.Model):
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     name = db.Column(db.Text())
     number = db.Column(db.Boolean)
-
+# ---------------------------------------------------------------------------
 # adminの削除処理
 @app.route('/destroy/<int:id>')
 def destroy(id):
@@ -48,6 +49,64 @@ def destroy(id):
     db.session.commit()
 
     return 'ok'
+# ---------------------------------------------------------------------------
+# /adminと/userの取得処理
+from datetime import datetime
+
+def get_nicknames():
+    nicknames = Nickname.query.all()
+    return nicknames
+
+def update_nickname_status(session,id: int, new_status: bool):
+    nickname_record = session.query.get(id)
+    if nickname_record:
+        nickname_record.status = new_status
+        db.session.commit()
+    else:
+        print("Nickname not found")
+
+def add_reservation(name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
+    new_reservation = Reservation(
+        name=name,
+        number=number,
+        ketchup=ketchup,
+        mustard=mustard,
+        reservationTime=now_time
+    )
+    db.session.add(new_reservation)
+    db.session.commit()
+
+def get_reservations():
+    reservations = Reservation.query.all()
+    return reservations
+# ---------------------------------------------------------------------------
+# /adminの編集処理
+
+
+# ---------------------------------------------------------------------------
+# デバッグ用プログラム
+
+def show_nickname(data):
+    for dt in data:
+        print(f"{dt.id} {dt.name} {dt.status}")
+
+def show_reservation(data):
+    for dt in data:
+        print(f"{dt.id} {dt.name} {dt.number} {dt.ketchup} {dt.mustard} {dt.reservationTime}")
+
+@app.route('/')
+def top():
+
+    show_nickname(get_nicknames())
+
+    update_nickname_status(Nickname,2,True)
+
+    add_reservation("枚方太郎",10,True,False,datetime.now())
+
+    show_reservation(get_reservations())
+
+    return 'ok'
+
 
 if __name__ == '__main__':
     app.debug = True
