@@ -81,11 +81,23 @@ def get_reservations():
     return reservations
 # ---------------------------------------------------------------------------
 # /adminの編集処理
+def update_reservation_by_id(id: int, name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
+    reservation = Reservation.query.get(id)
+    
+    if reservation:
+        reservation.name = name
+        reservation.number = number
+        reservation.ketchup = ketchup
+        reservation.mustard = mustard
+        reservation.time = now_time
+        db.session.commit()
+        
+    else:
+        print("Reservation not found.")
 
 
 # ---------------------------------------------------------------------------
 # デバッグ用プログラム
-
 def show_nickname(data):
     for dt in data:
         print(f"{dt.id} {dt.name} {dt.status}")
@@ -105,8 +117,9 @@ def top():
 
     show_reservation(get_reservations())
 
-    return 'ok'
+    update_reservation_by_id(1,"紺扉宇太",120,False,False,datetime.now())
 
+    return 'ok'
 
 if __name__ == '__main__':
     app.debug = True
