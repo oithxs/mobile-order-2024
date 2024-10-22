@@ -10,10 +10,13 @@ def login_required(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         if session.get("username") is None:
+
             return redirect(url_for("/admin/login")) ##ここ
+
         else:
             return func(*args, **kwargs)
     return wrapper
+
 
 
 @admin_view.route('/View')
@@ -55,6 +58,7 @@ def message():
     return render_template("/admin/message.html")
 
 
+
 @admin_view.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST':
@@ -62,7 +66,10 @@ def login():
         password = request.form['password']
         if username == os.environ.get("USER") and password == os.environ.get("PASSWORD"):
             session["username"] = username
+
             return redirect("/view")
+
+
         else:
             return render_template("/admin/login.html")
     else:
