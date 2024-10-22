@@ -1,48 +1,127 @@
-from flask import Flask, render_template, request
-from admin_view import admin_view
+
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 import os
+from dotenv import load_dotenv
+
+# envファイルを読み込む
+load_dotenv()
+user = os.environ['USER']
+password = os.environ['PASSWORD']
+db = os.environ['DB']
+host = os.environ['HOST']
 
 app = Flask(__name__)
 
-app.register_blueprint(admin_view,url_prefix="/admin")
-app.secret_key = os.urandom(24)
+db_uri = f'mysql+pymysql://{user}:{password}@{host}/{db}?charset=utf8'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+db = SQLAlchemy(app)
+# ---------------------------------------------------------------------------
+# DB生成処理
+class Reservation(db.Model):
+    __tablename__ = 'reservation'
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    name = db.Column(db.Text())
+    number = db.Column(db.Integer)
+    ketchup = db.Column(db.Boolean)
+    mustard = db.Column(db.Boolean)
+    reservationTime = db.Column(db.DateTime)
+    
+class Nickname(db.Model):
+    __tablename__ = 'nickname'
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    name = db.Column(db.Text())
+    status = db.Column(db.Boolean)
+
+class Received(db.Model):
+    __tablename__ = 'received'
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    name = db.Column(db.Text())
+    number = db.Column(db.Boolean)
+# ---------------------------------------------------------------------------
+# adminの削除処理
+@app.route('/destroy/<int:id>')
+def destroy(id):
+    message = "Destroy SQLAlchemy"
+
+    # データ削除
+    reservation = Reservation.query.get(id)
+    db.session.delete(reservation)
+    db.session.commit()
+
+    return 'ok'
+# ---------------------------------------------------------------------------
+# /adminと/userの取得処理
+from datetime import datetime
+
+def get_nicknames():
+    nicknames = Nickname.query.all()
+    return nicknames
+
+def update_nickname_status(session,id: int, new_status: bool):
+    nickname_record = session.query.get(id)
+    if nickname_record:
+        nickname_record.status = new_status
+        db.session.commit()
+    else:
+        print("Nickname not found")
+
+def add_reservation(name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
+    new_reservation = Reservation(
+        name=name,
+        number=number,
+        ketchup=ketchup,
+        mustard=mustard,
+        reservationTime=now_time
+    )
+    db.session.add(new_reservation)
+    db.session.commit()
+
+def get_reservations():
+    reservations = Reservation.query.all()
+    return reservations
+# ---------------------------------------------------------------------------
+# /adminの編集処理
+def update_reservation_by_id(id: int, name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
+    reservation = Reservation.query.get(id)
+    
+    if reservation:
+        reservation.name = name
+        reservation.number = number
+        reservation.ketchup = ketchup
+        reservation.mustard = mustard
+        reservation.time = now_time
+        db.session.commit()
+        
+    else:
+        print("Reservation not found.")
 
 
-@app.route('/',methods=['GET'])
-def home():
-    return "Welcome to Flask!!!"
+# ---------------------------------------------------------------------------
+# デバッグ用プログラム
+def show_nickname(data):
+    for dt in data:
+        print(f"{dt.id} {dt.name} {dt.status}")
 
-#トップページ
-@app.route('/top')
+def show_reservation(data):
+    for dt in data:
+        print(f"{dt.id} {dt.name} {dt.number} {dt.ketchup} {dt.mustard} {dt.reservationTime}")
+
+@app.route('/')
 def top():
-    return render_template("/user/top.html")
 
-#お客さんが注文するページ
-@app.route('/order')
-def order():
-    return render_template("/user/order.html")
+    show_nickname(get_nicknames())
 
-#注文確認ページ
-@app.route('/confirm',methods=['GET','POST'])
-def confirm():
-    return render_template("/user/confirm.html")
+    update_nickname_status(Nickname,2,True)
 
-#注文完了のページ
-@app.route('/result',methods=['GET','POST'])
-def result():
-    return render_template("/user/result.html")
+    add_reservation("枚方太郎",10,True,False,datetime.now())
 
-#注文履歴のページ
-@app.route('/history')
-def history():
-    return render_template("/user/history.html")
+    show_reservation(get_reservations())
 
-#エラーページ
-@app.route('/error')
-def error():
-    return render_template("/user/error.html")
+    update_reservation_by_id(1,"紺扉宇太",120,False,False,datetime.now())
 
-#レイアウト確認ページ
-@app.route('/layout')
-def layout():
-    return render_template("/layout_view.html")
+    return 'ok'
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run()

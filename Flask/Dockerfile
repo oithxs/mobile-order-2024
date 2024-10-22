@@ -2,7 +2,10 @@ FROM python:latest
 RUN apt update
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements.txt
-
+RUN pip install Flask
+RUN pip install Flask-SQLAlchemy
+RUN pip install PyMySQL
+RUN pip install python-dotenv
 ARG UID=1000
 ARG GID=1000
 ARG USERNAME=app
