@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}注文{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/order.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>お客さんが注文するページです</h1>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/user/order.js') }}"></script>
+{% endblock %}

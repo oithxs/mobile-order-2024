@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}注文確認{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/confirm.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>注文確認ページです</h1>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/user/confirm.js') }}"></script>
+{% endblock %}

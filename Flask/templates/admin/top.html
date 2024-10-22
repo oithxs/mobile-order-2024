@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}管理画面{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>管理画面ページです</h1>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
+{% endblock %}
