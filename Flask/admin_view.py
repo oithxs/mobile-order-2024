@@ -4,42 +4,59 @@ import functools
 
 admin_view = Blueprint('admin_view', __name__)
 
+
 def login_required(func):
     import functools
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         if session.get("username") is None:
-            return redirect(url_for("login")) ##ここ
+
+            return redirect(url_for("/admin/login")) ##ここ
+
         else:
             return func(*args, **kwargs)
     return wrapper
 
 
-@admin_view.route('/view')
+
+@admin_view.route('/View')
 @login_required
-def admin(msg=None):
-    # データ取得メソッド or 関数
-    return render_template("/admin/top.html",data=data,msg=msg)
+def view():
+    try:
+        # データ取得関数 or メソッド
+        # 引数 なし
+        return render_template("/admin/top.html")
+    except:
+        return render_template("/admin/message.html")
 
 
-@admin_view.route('/delete',methods=['POST'])
+@admin_view.route('/delete/<int:id>')
 @login_required
 def delete():
     try:
-        # データ削除メソッド or 関数
-        return redirect(url_for("admin_view.admin"),msg="delete success!")
+        # データ削除関数 or メソッド
+        # 引数 id
+        return redirect(url_for("view",message="delete success"))
     except:
-        return redirect(url_for("admin_view.admin"),msg="delete error")
+        return redirect(url_for("view",message="delete failed"))
 
 
-@admin_view.route('/edit',methods=['POST'])
+@admin_view.route('/edit/<int:id>')
 @login_required
 def edit():
     try:
-        # データ書き込みメソッド or 関数
-        return redirect(url_for("admin_view.admin"),msg="edit success!")
+        # データ編集関数 or メソッド
+        # 引数 id
+        return redirect(url_for("view",message="edit success"))
     except:
-        return redirect(url_for("admin_view.admin"),msg="edit error")
+        return redirect(url_for("view",message="edit failed"))
+
+
+@admin_view.route('/system/message')
+@login_required
+def message():
+    return render_template("/admin/message.html")
+
 
 
 @admin_view.route('/login',methods=['GET','POST'])
@@ -49,7 +66,10 @@ def login():
         password = request.form['password']
         if username == os.environ.get("USER") and password == os.environ.get("PASSWORD"):
             session["username"] = username
-            return redirect(url_for("admin_view.admin"),msg="login success!")
+
+            return redirect("/view")
+
+
         else:
             return render_template("/admin/login.html")
     else:
