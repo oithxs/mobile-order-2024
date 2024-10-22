@@ -17,4 +17,5 @@ COPY --chown=$UID:$GID ./ /usr/src/app
 WORKDIR /usr/src/app
 USER $USERNAME
 # RUN pip install -r /requirements.txt
-CMD ["flask", "run", "--host=0.0.0.0", "--port=5000","--debugger", "--reload"]
+# CMD ["flask", "run", "--host=0.0.0.0", "--port=5000","--debugger", "--reload"]
+CMD ["python", "app.py"]
