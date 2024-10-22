@@ -13,7 +13,11 @@ password = os.environ['PASSWORD']
 db = os.environ['DB']
 host = os.environ['HOST']
 
+
 app = Flask(__name__)
+
+app.register_blueprint(admin_view,url_prefix="/admin")
+app.secret_key = os.urandom(24)
 
 db_uri = f'mysql+pymysql://{user}:{password}@{host}/{db}?charset=utf8'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
