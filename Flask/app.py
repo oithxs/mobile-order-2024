@@ -1,6 +1,5 @@
 
 from flask import Flask, render_template, request,request,session,redirect,url_for
-from admin_view import admin_view
 from flask_sqlalchemy import SQLAlchemy
 import functools
 import os
