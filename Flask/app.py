@@ -64,8 +64,8 @@ def get_nicknames():
     return nicknames
 
 # user side True
-# admin side False
-"""ここわからん"""
+#使える：True
+#使用済み（もう使えない）：False
 def update_nickname_status1(session,id: int, new_status: bool):
     nickname_record = session.query.get(id)
     if nickname_record:
@@ -75,6 +75,7 @@ def update_nickname_status1(session,id: int, new_status: bool):
         print("Nickname not found")
 
 """ここはデータベースに何を追加するプログラム"""
+#ユーザが予約したデータを登録する
 def add_reservation(name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
     new_reservation = Reservation(
         name=name,
@@ -87,9 +88,7 @@ def add_reservation(name: str, number: int, ketchup: bool, mustard: bool, now_ti
     db.session.commit()
 
 """
-
 adminの一覧画面からの取得
-
 """
 def get_reservations():
     reservations = Reservation.query.all()
