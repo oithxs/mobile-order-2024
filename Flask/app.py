@@ -87,9 +87,9 @@ def add_reservation(name: str, number: int, ketchup: bool, mustard: bool, now_ti
     db.session.commit()
 
 """
-これはどこから呼び出されることを想定した？
-履歴画面？それともadminの一覧画面？
-どちらにしろ、履歴画面と一覧画面で二種類必要だと思う
+
+adminの一覧画面からの取得
+
 """
 def get_reservations():
     reservations = Reservation.query.all()
