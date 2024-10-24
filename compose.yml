@@ -3,10 +3,36 @@ services:
     build:
       context: ./Flask
       dockerfile: Dockerfile
+    depends_on:
+      - mysql
     ports:
       - "5000:5000"
+    environment:
+      MYSQL_HOST: mysql
     env_file:
       - .env
     volumes:
         - ./Flask:/usr/src/app
     init: true
+
+  mysql:
+    image: mysql
+    env_file:
+      - .env
+    volumes:
+      - sql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+      
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+    env_file:
+      - .env
+    ports:
+      - 8080:80
+volumes:
+  sql-data:
