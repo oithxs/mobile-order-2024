@@ -17,7 +17,7 @@ def order():
 
     order_data = {
         "nickname": "ドッグフランク",
-        "isOrderLeft": False
+        "isOrderLeft": True
     }
 
     if(order_data['isOrderLeft']):
