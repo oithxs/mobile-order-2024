@@ -14,12 +14,19 @@ def top():
 #お客さんが注文するページ
 @app.route('/order')
 def order():
-    return render_template("/user/order.html")
+
+    order_data = {
+        "nickname": "ドッグフランク",
+        "isOrderLeft": True
+    }
+
+    return render_template("/user/order.html", order_data=order_data)
 
 #注文確認ページ
-@app.route('/confirm',methods=['GET','POST'])
+@app.route('/confirm',methods=['POST'])
 def confirm():
-    return render_template("/user/confirm.html")
+    order_data = request.form
+    return render_template("/user/confirm.html",order_data=order_data)
 
 #注文完了のページ
 @app.route('/result',methods=['GET','POST'])
