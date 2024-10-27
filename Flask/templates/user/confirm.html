@@ -8,6 +8,21 @@
 
 {% block content %}
     <h1>注文確認ページです</h1>
+    <p>{{order_data}}</p>
+    <form action="/result" method="POST">
+        <div>
+            <input type="hidden" name="nickname" value={{ order_data.nickname }}>
+            <input type="hidden" name="isOrderLeft" value={{ order_data.isOrderLeft }}>
+            <input type="hidden" name="count" value={{ order_data.count }}>
+            <input type="hidden" name="ketchup" value={{ order_data.ketchup }}>
+            <input type="hidden" name="mustard" value={{ order_data.mustard }}>
+            <input type="hidden" name="reservationTime" value={{ order_data.reservationTime }}>
+        </div>
+        <div>
+            <a href="/order">キャンセル</a>
+            <button type="submit">注文確定</a></button>
+        </div>
+    </form>
 {% endblock %}
 
 {% block javascript %}
