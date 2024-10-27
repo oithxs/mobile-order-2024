@@ -11,7 +11,7 @@ window.onload = function () {
     const date = new Date();
     rTime = document.getElementById("reservationTime");
     console.log(rTime.value);
-    rTime.value = date.getHours().toString() + ":" + paddingTime(date.getMinutes().toString());
+    rTime.value = paddingTime(date.getHours().toString()) + ":" + paddingTime(date.getMinutes().toString());
 
 
     let calcSum = function (value) {
@@ -25,4 +25,10 @@ window.onload = function () {
         money.innerText = calcSum(count.value);
         }
     )
+};
+
+window.onpageshow = function(event) {
+	if (event.persisted) {
+		window.location.reload();
+	}
 };
