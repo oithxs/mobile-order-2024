@@ -39,7 +39,17 @@ def error():
 #/adminの閲覧ページ
 @app.route('/admin')
 def admin():
-    return render_template("/admin/top.html")
+    admin_data = [
+        {"ニックネーム":"山田", "本数":5, "ケチャップ":True, "マスタード":True, "予定時刻":"15:00"},
+        {"ニックネーム":"tom", "本数":15, "ケチャップ":False, "マスタード":True, "予定時刻":None},
+        {"ニックネーム":"まいける", "本数":6, "ケチャップ":True, "マスタード":False, "予定時刻":"9:15"},
+    ]
+    return render_template("/admin/top.html", data=admin_data)
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    name = request.form['ニックネーム']
+    return f"Delete: {name}"
 
 #/adminのシステムメッセージのページ
 @app.route('/admin/msg')
@@ -50,3 +60,4 @@ def system_message():
 @app.route('/layout')
 def layout():
     return render_template("/layout_view.html")
+    

@@ -1,15 +1,74 @@
-{% extends "layout.html" %}
-
-{% block title %}管理画面{% endblock %}
-
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
 {% endblock %}
 
 {% block content %}
-    <h1>管理画面ページ</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ニックネーム</th>
+            <th>本数</th>
+            <th>ケチャップ</th>
+            <th>マスタード</th>
+            <th>予約時刻</th>
+            <th>     </th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- <tr>
+            <td>山田 太郎</td>
+            <td>1</td>
+            <td><input type="checkbox" disabled='disabled'></td>
+            <td><input type="checkbox" disablad='disabled'></td>
+            <td>15:00</td>
+            <td>
+                <button class="deleteButton">削除</button>
+            </td>
+        </tr> -->
+        {% for data in data %}
+            <tr>
+                <td>{{ data["ニックネーム"] }}</td>
+                <td>{{ data["本数"]}}</td>
+                <td>
+                    <div class="checkbox-container">
+                        <input type="checkbox" class="ketchup" disabled='disabled'
+                        {% if data["ケチャップ"]==True %}
+                            checked
+                        {% endif %}>
+                    </div>
+                </td>
+                <td>
+                    <div class="checkbox-container">
+                        <input type="checkbox" class="mustard" disabled='disabled'
+                        {% if data["マスタード"]==True %}
+                            checked
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    {% if data["予定時刻"]==None %}
+                        現地注文
+                    {% else %}
+                        {{ data["予定時刻"] }}
+                    {% endif %}
+                </td>
+                <td>
+                    <form id="delete" action="/delete" method="POST">
+                        <input name="ニックネーム" style="display: none;" value={{ data["ニックネーム"] }}></input>
+                        <button class="deleteButton" onclick="SendDeleteForm()" type="button">削除</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    
 {% endblock %}
 
 {% block javascript %}
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const dataFromFlask = params.get('data');
+</script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
 {% endblock %}
