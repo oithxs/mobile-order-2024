@@ -29,8 +29,9 @@ def confirm():
     return render_template("/user/confirm.html",order_data=order_data)
 
 #注文完了のページ
-@app.route('/result',methods=['GET','POST'])
+@app.route('/result',methods=['POST'])
 def result():
+    order_data = request.form #このorder_dataを使ってDBに保存する
     return render_template("/user/result.html")
 
 #注文履歴のページ
