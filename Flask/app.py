@@ -1,7 +1,49 @@
-from flask import Flask, render_template
+## 焼き時間予測システム
+from flask import Flask, render_template,request,jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
+import sys
+import datetime
+
+# 正しいディレクトリで動かすこと（再生ボタン厳禁）
+#---------------------------------------------------------
+## 機能02
+# 現在の時刻を取得する
+def nowTime():
+    import datetime
+    return datetime.datetime.now()
+
+
+#---------------------------------------------------------
+## 機能00
+# バックアップデータの書き込み
+def backUpWrite(count :int):
+    backUp = open('backUpNum.txt','w')
+    backUp.write(str(count))
+    backUp.close()
+
+# バックアップデータの読み取り
+def backUpRead():
+    with open('backUpNum.txt','r') as backUp:
+        try:
+            readData = int(backUp.readline())
+        except FileNotFoundError:
+            print("BackUpFile is not foud or not data.")
+            sys.exit()
+        except ValueError:
+            print("The data is strange.")
+            sys.exit()
+        else:
+            backUp.close() 
+            return readData
+        
+# バックアップデータ（焼き本数）を取得
+bakingNum = backUpRead()
+# 更新時刻を取得
+newTime = nowTime()
+#-----------------------------------------------------
+
 
 # envファイルを読み込む
 load_dotenv()
@@ -10,6 +52,12 @@ password = os.environ['PASSWORD']
 db = os.environ['DB']
 host = os.environ['HOST']
 
+#---------------------------------------------------------
+## 機能01
+# 焼き時間を環境変数から読み取る
+# envファイルを読み込む
+bakingTime = int(os.environ['BAKINGTIME']) # 焼き時間は分
+#---------------------------------------------------------
 app = Flask(__name__)
 
 db_uri = f'mysql+pymysql://{user}:{password}@{host}/{db}?charset=utf8'
@@ -36,123 +84,98 @@ class Received(db.Model):
     __tablename__ = 'received'
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     name = db.Column(db.Text())
-    number = db.Column(db.Boolean)
-# ---------------------------------------------------------------------------
-# adminの削除処理
-@app.route('/destroy/<int:id>')
-def destroy(id):
-    message = "Destroy SQLAlchemy"
-
-    # データ削除
-    reservation = Reservation.query.get(id)
-    db.session.delete(reservation)
-    db.session.commit()
-
-    return 'ok'
-# ---------------------------------------------------------------------------
-# /adminと/userの取得処理
-from datetime import datetime
-
-def get_nicknames():
-    nicknames = Nickname.query.all()
-    return nicknames
-
-def update_nickname_status1(session,id: int, new_status: bool):
-    nickname_record = session.query.get(id)
-    if nickname_record:
-        nickname_record.status = new_status
-        db.session.commit()
-    else:
-        print("Nickname not found")
-
-def update_nickname_status2(session,nickName: str, new_status: bool):
-    nickname_record = session.query.all()
-    for oneNickName in nickname_record:
-        if(oneNickName.name==nickName):
-            update_nickname_status1(session,oneNickName.id,new_status)
-            return  True
-    print("Nickname not found")
-    return  False
+    number = db.Column(db.Integer)
 
 
-def add_reservation(name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
-    new_reservation = Reservation(
-        name=name,
-        number=number,
-        ketchup=ketchup,
-        mustard=mustard,
-        reservationTime=now_time
-    )
-    db.session.add(new_reservation)
-    db.session.commit()
 
-def get_reservations():
-    reservations = Reservation.query.all()
-    return reservations
+#---------------------------------------------------------
+## 機能01
+# 焼かなければならない数を確認するページ
+import datetime
+@app.route('/bakingCheck')
+def BakingCheck():
+    # 焼かなければならない数を取得
+    return render_template("admin/bakingCheck.html")
 
-def getOrderHistory(id: int):
-    order = Reservation.query.get(id)
-    name = order.name
-    number = order.number
-    ketchup = order.ketchup
-    mustard = order.mustard
-    reservationTime = order.reservationTime
-    return name,number,ketchup,mustard,reservationTime
+# 焼かなければならない数をリセットするページ
+@app.route('/bakingCountReset')
+def bakingCountReset():
+    global bakingNum
+    global newTime
+    bakingNum = 0
+    newTime = nowTime()
+    backUpWrite(bakingNum)
+    return "<p>処理中です...</p><script>window.location.href = 'bakingCheck';</script>"
 
-# ---------------------------------------------------------------------------
-# /adminの編集処理
-def update_reservation_by_id(id: int, name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
-    reservation = Reservation.query.get(id)
+# 情報を取得(JSON形式で返却)
+@app.route('/getData')
+def getData():
+    global bakingNum
+    global newTime
+    data = {"count":f"{bakingNum}","time":f"{newTime.strftime('%Y/%m/%d %H:%M:%S')}"}
+    return jsonify(data)
+
+
+
+#---------------------------------------------------------
+# 機能02
+
+
+
+#---------------------------------------------------------
+# 機能03
+# 現在の時刻に焼き始めなければならないフランクフルトの数を取得する関数
+from datetime import timedelta
+from sqlalchemy import func
+def get_frankfurts_to_start_baking():
+    current_time = nowTime()
+    bake_start_time = current_time + timedelta(minutes=bakingTime)
+
+    cuTime = bake_start_time.strftime('%H:%M')
+
+    # 焼き始める必要がある予約の数を取得
+    frankfurts_to_start = db.session.query(func.sum(Reservation.number)).filter(func.date_format(Reservation.reservationTime, '%H:%i') == cuTime).scalar()
+    if(frankfurts_to_start==None):
+        return 0
+    #frankfurts_to_start = db.session.query(Reservation).filter(func.date_format(Reservation.reservationTime, '%H:%i') == cuTime).all()
     
-    if reservation:
-        reservation.name = name
-        reservation.number = number
-        reservation.ketchup = ketchup
-        reservation.mustard = mustard
-        reservation.time = now_time
-        db.session.commit()
-        
+    return frankfurts_to_start
+
+
+#---------------------------------------------------------
+# 機能04
+# 予約状況より何分遅延しているかを出力する
+def reservationlate(id: int):
+    time00 = nowTime()
+    reservation11 = Reservation.query.get(id)
+    if(reservation11!=None):
+        reservationlate  = time00 - reservation11.reservationTime
+
+    if reservation11 is None:
+        # 予約されていない/受け取り済み
+        return "データがありません。"
+    elif(reservationlate.days > 0):
+        # 遅延している
+        return f"{reservationlate.seconds / 60}分遅延しています。"
     else:
-        print("Reservation not found.")
+        # 遅延していない
+        return "遅延していません。"
 
 
-# ---------------------------------------------------------------------------
-# デバッグ用プログラム
-def show_nickname(data):
-    for dt in data:
-        print(f"{dt.id} {dt.name} {dt.status}")
 
-def show_reservation(data):
-    for dt in data:
-        print(f"{dt.id} {dt.name} {dt.number} {dt.ketchup} {dt.mustard} {dt.reservationTime}")
-
+#-------------------------
+# デバッグ用
 @app.route('/')
-def top():
-
-    show_nickname(get_nicknames())
-
-    update_nickname_status1(Nickname,2,True)
-
-    add_reservation("枚方太郎",10,True,False,datetime.now())
-
-    show_reservation(get_reservations())
-
-    update_reservation_by_id(1,"紺扉宇太",500,False,False,datetime.now())
-
-    print("KabayakiTarou")
-    print(update_nickname_status2(Nickname,"KabayakiTarou",True))
-
-    #存在しないときのテスト
-    print("Tarou")
-    print(update_nickname_status2(Nickname,"Tarou",False))
-
-    # 履歴を取得
-    name,number,ketchup,mustard,reservationTime = getOrderHistory(3)
-    print(f"名前:{name} 個数:{number} ケチャップ:{ketchup} マスタード:{mustard} 予約時刻:{reservationTime}")
-
-    return render_template("user/top.html")
-
+def inde():
+    #print(f"存在しないデータ:{reservationlate(100)}")
+    #print(f"予約時刻を過ぎている:{reservationlate(1)}")
+    #print(f"予約時刻を過ぎていない:{reservationlate(12)}")
+    #print(f"焼き始めなければ:{get_frankfurts_to_start_baking()}")
+    #テスト用
+    global bakingNum
+    bakingNum = 110
+    return '<a href="/bakingCheck">移動</a>'
 
 if __name__ == '__main__':
     app.debug = True
-    app.run()
+    app.run(host="0.0.0.0",port=5000)

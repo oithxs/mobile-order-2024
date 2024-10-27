@@ -1,4 +1,4 @@
-
+# テスト用のシステムです．本番用ではありません．
 from flask import Flask, render_template, request,request,session,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 import functools
