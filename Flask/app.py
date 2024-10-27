@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, redirect, url_for,request
 
 app = Flask(__name__)
 
@@ -17,10 +17,13 @@ def order():
 
     order_data = {
         "nickname": "ドッグフランク",
-        "isOrderLeft": True
+        "isOrderLeft": False
     }
 
-    return render_template("/user/order.html", order_data=order_data)
+    if(order_data['isOrderLeft']):
+        return render_template("/user/order.html", order_data=order_data)
+    else:
+        return redirect(url_for('error'))
 
 #注文確認ページ
 @app.route('/confirm',methods=['POST'])
