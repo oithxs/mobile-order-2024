@@ -11,10 +11,11 @@
         <form action="/confirm" id="orderForm" method="POST">
             <!-- 送られてきたデータを注文確認ページに送る -->
             <input type="hidden" name="nickname" value={{ order_data.nickname }}>
+            <input type="hidden" name="isOrderLeft" value={{ order_data.isOrderLeft }}>
 
             <h1>注文</h1>
-            <label for="frankfurt">フランクフルト ￥200</label>
-            <input type="number" value="1" min="1" max="10" name="count">
+            <label for="frankfurt">フランクフルト ￥150</label>
+            <input type="number" value="1" min="1" max="10" name="count" id="count">
             <h1>トッピング</h1>
             <div name="toggleButton">
                 <label for="ketchup">ケチャップ</label>
@@ -44,7 +45,12 @@
                 <input type="time" id="reservationTime" name="reservationTime" value="">
             </div>
 
-            <button type="submit">注文確認画面へ</button>
+            <div>
+                <span>合計</span>
+                <span id="resultMoney">150</span>
+                <span>円</span>
+                <button type="submit">注文確認画面へ</button>
+            </div>
         </form>
     </body>
     
