@@ -1,6 +1,8 @@
+#from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, redirect, url_for,request
 
 app = Flask(__name__)
+true = 1
 
 @app.route('/',methods=['GET'])
 def home():
@@ -10,6 +12,10 @@ def home():
 @app.route('/top')
 def top():
     return render_template("/user/top.html")
+
+@app.route('/sgrid')
+def sgrid():
+    return render_template("/user/sgrid.html")
 
 #お客さんが注文するページ
 @app.route('/order')
@@ -38,9 +44,18 @@ def result():
     return render_template("/user/result.html")
 
 #注文履歴のページ
-@app.route('/history')
+@app.route('/history',methods=['GET'])
 def history():
-    return render_template("/user/history.html")
+    history_data = {
+        "number": 1,
+        "time": "11:30",
+        "nickname": "Mr.Frankfurt",
+        "status": "Received",
+        "count": 3,
+        "ketchup": true,
+        "mustard": true
+    }
+    return render_template("/user/history.html", history_data = history_data)
 
 #エラーページ
 @app.route('/error')
