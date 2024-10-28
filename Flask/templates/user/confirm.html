@@ -3,13 +3,58 @@
 {% block title %}注文確認{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/confirm.css') }}">
+    <link rel="stylesheet" href="../../static/css/user/confirm.css">
 {% endblock %}
 
 {% block content %}
-    <h1>注文確認ページです</h1>
+    <main>
+    <header><h1>注文確認ページ</h1></header>
+    <div class="zennbu">
+    <table class="hyou1" border="1">
+    <tr>
+        <th><h3>本数</h3></th>
+        <td><input min="0" max="3" step="1" value="0" readonly="readonly">本</td>
+    </tr>
+    <tr>
+        <th><h3>ケチャップ</h3></th>
+        <td><input min="0" max="3" step="1" value="0" readonly="readonly">個</td>
+    </tr>
+    <tr>    
+        <th><h3>マスタード</h3></th>
+        <td><input min="0" max="3" step="1" value="0" readonly="readonly">個</td>
+    </tr>
+    <tr>
+        <th><h3>お値段</h3></th>
+        <td><input min="0" max="3" step="1" value="0" readonly="readonly">円</td>
+     </tr>
+    </table>
+    <p>
+    </p>
+    <div class="goukei">合計:<input  value="0" readonly="readonly">円</div>
+    <p>
+    </p>
+    <div class="kotira"><h3>こちらのご注文でお間違いなかったでしょうか？</h3></div>
+    <p>
+    </p>
+    <div class="tyuumonb">
+    <button class="button3">
+    <h2><a href="/result">注文確定</a></h2>
+    </button>
+    </div>
+    <button class="button1">
+    <a href="/order">注文に戻る</a>
+    </button>
+    <button class="button2">
+    <a href="/top">topに戻る</a>
+    </button>
+    <p></p>
+    <div class="a2024">
+    2024H×Sコンピューター部
+    </div>
+</main>
 {% endblock %}
 
 {% block javascript %}
+
 <script type="text/javascript" src="{{ url_for('static', filename='js/user/confirm.js') }}"></script>
 {% endblock %}
