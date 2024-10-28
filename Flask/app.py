@@ -7,15 +7,14 @@ from dotenv import load_dotenv
 
 # envファイルを読み込む
 load_dotenv()
-user = os.environ['USER']
-password = os.environ['PASSWORD']
-db = os.environ['DB']
-host = os.environ['HOST']
+user = os.environ['MYSQL_USER']
+password = os.environ['MYSQL_PASSWORD']
+db = os.environ['MYSQL_DATABASE']
+host = os.environ['MYSQL_HOST']
 
 
 app = Flask(__name__)
 
-app.register_blueprint(admin_view,url_prefix="/admin")
 app.secret_key = os.urandom(24)
 
 db_uri = f'mysql+pymysql://{user}:{password}@{host}/{db}?charset=utf8'
@@ -74,6 +73,15 @@ def update_nickname_status1(session,id: int, new_status: bool):
     else:
         print("Nickname not found")
 
+
+def addReceived(name: str,number: int):
+    new_received = Received(
+        name= name,
+        number=number
+    )
+    db.session.add(new_received)
+    db.session.commit()
+
 """ここはデータベースに何を追加するプログラム"""
 #ユーザが予約したデータを登録する
 def add_reservation(name: str, number: int, ketchup: bool, mustard: bool, now_time: datetime):
@@ -92,6 +100,7 @@ adminの一覧画面からの取得
 """
 def get_reservations():
     reservations = Reservation.query.all()
+    print(reservations)
     return reservations
 # ---------------------------------------------------------------------------
 # /adminの編集処理
@@ -128,6 +137,30 @@ def show_reservation(data):
         print(f"{dt.id} {dt.name} {dt.number} {dt.ketchup} {dt.mustard} {dt.reservationTime}")
 
 
+def getOrderHistory(id: int):
+    order = Reservation.query.get(id)
+    name = order.name
+    number = order.number
+    ketchup = order.ketchup
+    mustard = order.mustard
+    reservationTime = order.reservationTime
+    return name,number,ketchup,mustard,reservationTime
+
+
+
+def login_required(func):
+    import functools
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        if session.get("username") is None:
+
+            return redirect(url_for("login")) ##ここ
+
+        else:
+            return func(*args, **kwargs)
+    return wrapper
+
+
 """
 #################################################ルーティング部#################################################
 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
@@ -152,11 +185,11 @@ def top():
 @app.route('/admin/View')
 @login_required
 def view():
-    try:
+    # try:
         reservations=get_reservations()
         return render_template("/admin/top.html",reservations=reservations)
-    except:
-        return render_template("/admin/message.html",message="view failed")
+    # except:
+    #     return render_template("/admin/message.html",message="view failed")
 
 
 @app.route('/admin/delete/<int:id>')
@@ -165,9 +198,11 @@ def delete(id):
     try:
         # データ削除関数 or メソッド
         # 引数 id
+        name,number,ketchup,mustard,reservationTime = getOrderHistory(id)
         destroy(id)
         # これはたぶんいるけど T F のどちらにするべき
-        # update_nickname_status1(id=id,new_status=False)
+        update_nickname_status1(id=id,new_status=False)
+        addReceived(name,number)
         return redirect(url_for("view",message="delete success"))
     except:
         return redirect(url_for("view",message="delete failed"))
@@ -177,7 +212,7 @@ def delete(id):
 @login_required
 def edit(id):
     try:
-        name=None,number=None,ketchup=None,mustard=None,datetime=None
+        name,number,ketchup,mustard,datetime = None,None,None,None,None
         """
         request.formによって振り分ける
         """
@@ -204,30 +239,13 @@ def login():
         if username == os.environ.get("USER") and password == os.environ.get("PASSWORD"):
             session["username"] = username
 
-            return redirect("/view")
+            return redirect("/admin/View")
 
 
         else:
             return render_template("/admin/login.html")
     else:
         return render_template("/admin/login.html")
-
-
-
-
-def login_required(func):
-    import functools
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        if session.get("username") is None:
-
-            return redirect(url_for("/admin/login")) ##ここ
-
-        else:
-            return func(*args, **kwargs)
-    return wrapper
-
-
 
 
 if __name__ == '__main__':

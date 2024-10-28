@@ -1,19 +1,19 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{{ url_for('login') }}" method="post">
+        <input type="text" name="username" placeholder="ユーザー名">
+        <input type="password" name="password" placeholder="パスワード">
+        <input type="submit" value="ログイン">
+    </form>
+</body>
+</html>
 
-{% block title %}ログイン{% endblock %}
 
-{% block css %}
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}"> -->
-{% endblock %}
 
-{% block content %}
-<form action="{{ url_for('admin_view.login') }}" method="post">
-    <input type="text" name="username" placeholder="ユーザー名">
-    <input type="password" name="password" placeholder="パスワード">
-    <input type="submit" value="ログイン">
-</form>
-{% endblock %}
 
-{% block javascript %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
-{% endblock %}
