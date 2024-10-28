@@ -1,0 +1,21 @@
+@charset "UTF-8";
+.p1{background-color: coral;
+text-align: center;}
+section{background-color: white;
+    border-width: thick;
+border-style: dotted;
+margin-left: 270px;
+margin-right: 270px;
+padding: 1px;
+text-align: center;
+padding-top: 10px;}
+.kann{
+    color: crimson;
+}
+.tyuui{color: red;}
+button{margin: 0px 0px 50px 550px;}
+main{background-image: url(../../niku.jpg);
+background-repeat: no-repeat;
+background-size:cover ;}
+.kesi1{list-style-type: square;}
+.kesi2{list-style-type: square;}
