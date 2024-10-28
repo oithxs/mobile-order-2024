@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+#from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 true = 1
@@ -10,13 +11,11 @@ def home():
 #トップページ
 @app.route('/top')
 def top():
-    order_data = {
-        "count": 3,
-        "ketchup": true,
-        "mustard": true,
-        "time": "11:30"
-    }
-    return render_template("/user/top.html", order_data = order_data)
+    return render_template("/user/top.html")
+
+@app.route('/sgrid')
+def sgrid():
+    return render_template("/user/sgrid.html")
 
 #お客さんが注文するページ
 @app.route('/order')
@@ -34,9 +33,18 @@ def result():
     return render_template("/user/result.html")
 
 #注文履歴のページ
-@app.route('/history')
+@app.route('/history',methods=['GET'])
 def history():
-    return render_template("/user/history.html")
+    history_data = {
+        "number": 1,
+        "time": "11:30",
+        "nickname": "Mr.Frankfurt",
+        "status": "Received",
+        "count": 3,
+        "ketchup": true,
+        "mustard": true
+    }
+    return render_template("/user/history.html", history_data = history_data)
 
 #エラーページ
 @app.route('/error')

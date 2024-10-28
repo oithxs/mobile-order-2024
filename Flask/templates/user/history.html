@@ -7,7 +7,24 @@
 {% endblock %}
 
 {% block content %}
+<div class="appframe">
     <h1>注文履歴のページです</h1>
+    <p>注文番号: {{history_data.number}}</p>
+    <p>注文時間: {{history_data.time}}</p>
+    <p>ニックネーム: {{history_data.nickname}}</p>
+    <p>ステータス: {{history_data.status}}</p>
+    <p>フランクフルトの本数は{{history_data.count}}本です</p>
+    {% if history_data.ketchup == True %}
+        <p>ケチャップありです</p>
+    {% else %}
+        <p>ケチャップなしです</p>
+    {% endif %}
+    {% if history_data.mustard == True %}
+        <p>マスタードありです</p>
+    {% else %}
+        <p>マスタードなしです</p>
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block javascript %}
