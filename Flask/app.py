@@ -149,7 +149,7 @@ def top():
     return 'ok'
 
 
-@app.route('/View')
+@app.route('/admin/View')
 @login_required
 def view():
     try:
@@ -159,7 +159,7 @@ def view():
         return render_template("/admin/message.html",message="view failed")
 
 
-@app.route('/delete/<int:id>')
+@app.route('/admin/delete/<int:id>')
 @login_required
 def delete(id):
     try:
@@ -173,7 +173,7 @@ def delete(id):
         return redirect(url_for("view",message="delete failed"))
 
 
-@app.route('/edit/<int:id>')
+@app.route('/admin/edit/<int:id>')
 @login_required
 def edit(id):
     try:
@@ -189,14 +189,14 @@ def edit(id):
         return redirect(url_for("view",message="edit failed"))
 
 
-@app.route('/system/message')
-@login_required
-def message():
-    return render_template("/admin/message.html")
+# @app.route('/admin/system/message')
+# @login_required
+# def message():
+#     return render_template("/admin/message.html")
 
 
 
-@app.route('/login',methods=['GET','POST'])
+@app.route('/admin/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
