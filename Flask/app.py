@@ -1,4 +1,5 @@
 ## 焼き時間予測システム
+## debugモードはオフにしてください．
 from flask import Flask, render_template,request,jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -177,5 +178,5 @@ def inde():
     return '<a href="/bakingCheck">移動</a>'
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = False
     app.run(host="0.0.0.0",port=5000)
