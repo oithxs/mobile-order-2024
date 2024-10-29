@@ -1,0 +1,81 @@
+body {
+    font-family: 'Arial', sans-serif;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+table {
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 50px;
+    border-collapse: collapse;
+    border-radius: 10px; /* 角を丸める */
+    overflow: hidden; /* 角の丸みを保持 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #fffafa;
+    text-align: center;
+}
+th {
+    text-align: center; /* ヘッダーを中央揃え */
+    background-color: #4a90e2;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none; /* デフォルトのスタイルをリセット */
+    width: 24px; /* チェックボックスの幅 */
+    height: 24px; /* チェックボックスの高さ */
+    border: 2px solid #ccc; /* チェックボックスの枠線 */
+    border-radius: 4px; /* 角を少し丸める */
+    outline: none; /* フォーカス時のアウトラインを消す */
+    position: relative; /* チェックマークの位置を相対的にする */
+}
+input[type=checkbox].ketchup {
+    background-color: #ff4d4d; /* ケチャップ用の背景色（赤） */
+    border-color: #ff4d4d;
+}
+input[type=checkbox].mustard {
+    background-color: #ffcc00; /* マスタード用の背景色（黄色） */
+    border-color: #ffcc00;
+}
+input[type=checkbox]:not(:checked) {
+    background-color: #fffafa;
+}
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 12px;
+    height: 12px;
+    border: solid white; /* チェックマークの色 */
+    border-width: 0 4px 4px 0; /* チェックマークの形 */
+    transform: rotate(45deg); /* チェックマークを回転 */
+}
+
+.delete{
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.delete:hover {
+    background-color: #e63939; /* 削除ボタンのホバー時背景色 */
+}

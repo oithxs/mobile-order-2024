@@ -1,15 +1,79 @@
-{% extends "layout.html" %}
-
-{% block title %}管理画面{% endblock %}
-
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
 {% endblock %}
 
 {% block content %}
-    <h1>管理画面ページです</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ニックネーム</th>
+            <th>本数</th>
+            <th>ケチャップ</th>
+            <th>マスタード</th>
+            <th>予約時刻</th>
+            <th>     </th>
+            <th>     </th>
+        </tr>
+    </thead>
+    <tbody id="main-table">
+        {% for data in reservations %}
+            <tr>
+                <td>{{ data["name"] }}</td>
+                <td>{{ data["number"]}}</td>
+                <td>
+                    <div class="checkbox-container">
+                        <input type="checkbox" class="ketchup" disabled='disabled'
+                        {% if data["ketchup"]==True %}
+                            checked
+                        {% endif %}>
+                    </div>
+                </td>
+                <td>
+                    <div class="checkbox-container">
+                        <input type="checkbox" class="mustard" disabled='disabled'
+                        {% if data["mustard"]==True %}
+                            checked
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    {% if data["reservationTime"]==None %}
+                        現地注文
+                    {% else %}
+                        {{ data["reservationTime"] }}
+                    {% endif %}
+                </td>
+                <td>
+                    <form id="delete" action="/delete" method="POST">
+                        <input name="ニックネーム" style="display: none;" value={{ data["name"] }}></input>
+                        <button class="deleteButton" onclick="SendDeleteForm()" type="button">削除</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
+<script>
+    const reservations = [];
+    // {% for data in reservations %}
+    {
+        const reservation = {
+            id: Number("{{ data['id'] }}"),
+            name: "{{ data['name'] }}",
+            number: Number("{{ data['number'] }}"),
+            ketchup: ("{{ data['ketchup'] }}" == "True")? true : false,
+            mustard: ("{{ data['mustard'] }}" == "True")? true : false,
+            reservationTime: "{{ data['reservationTime'] }}",
+        }
+        reservations.push(reservation);
+    }
+    // {% endfor %}
+    console.log(reservations);
+    print_table(reservations);
+</script>
 {% endblock %}
