@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import functools
 import os
 from dotenv import load_dotenv
+from datetime import datetime as dt
 
 # envファイルを読み込む
 load_dotenv()
@@ -41,7 +42,7 @@ class Received(db.Model):
     __tablename__ = 'received'
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     name = db.Column(db.Text())
-    number = db.Column(db.Boolean)
+    number = db.Column(db.Integer)
 # ---------------------------------------------------------------------------
 # adminの削除処理
 def destroy(id):
@@ -73,10 +74,19 @@ def update_nickname_status1(session,id: int, new_status: bool):
     else:
         print("Nickname not found")
 
+def update_nickname_status2(session,nickName: str, new_status: bool):
+    nickname_record = session.query.all()
+    for oneNickName in nickname_record:
+        if(oneNickName.name==nickName):
+            update_nickname_status1(session,oneNickName.id,new_status)
+            return  True
+    print("Nickname not found")
+    return  False
+
 
 def addReceived(name: str,number: int):
     new_received = Received(
-        name= name,
+        name=name,
         number=number
     )
     db.session.add(new_received)
@@ -178,54 +188,52 @@ def top_user():
 
 
 #お客さんが注文するページ
-@app.route('/orders/order',methods=['GET'])
+@app.route('/order',methods=['GET'])
 def order():
-
     nickname = Nickname.query.all()
-    return render_template("user/order.html",nickname)
+    return render_template("user/order.html",nickname=nickname)
 
 #注文確認のページ
-@app.route('/orders/confirm',methods=['GET'])
+@app.route('/confirm',methods=['GET'])
 def confirm():
     return render_template("user/confirm.html")
 
 #注文完了のページ
-@app.route('/orders/result',methods=['GET','POST'])
+@app.route('/result',methods=['GET','POST'])
 def result():
     if request.method == 'GET':
         return render_template("user/result.html")
     if request.method == 'POST':
-        new_reservation = Post()
-        new_reservation.name = request.form['name']
-        new_reservation.number = request.form['number']
-        new_reservation.ketchup = request.form['ketchup']
-        new_reservation.mustard = request.form['mustard']
-        new_reservation.reservationTime = request.form['reservationTime']
-        db.session.add(new_reservation)
-        db.session.commit()
-        return render_template("usr/result.html")
+        add_reservation(
+            request.form['name'],
+            int(request.form['number']),
+            bool(request.form['ketchup']),
+            bool(request.form['mustard']),
+            dt.strptime(request.form['reservationTime'], '%Y-%m-%d %H:%M:%S')
+        )
+        return render_template("user/result.html")
 
 
 #エラーページ
-@app.route('/orders/error',methods=['GET'])
+@app.route('/error',methods=['GET'])
 def error():
-    return render_template("error.html")
+    return render_template("user/error.html")
 
 #注文履歴のページ
-@app.route('/orders/history/<int:id>',methods=['GET'])
+@app.route('/history/<int:id>',methods=['GET'])
 def history(id):
     reservation = Reservation.query.get(id)
-    return render_template("history.html",reservation)
+    return render_template("user/history.html",reservation=reservation)
 
 
 @app.route('/admin/View')
 @login_required
 def view():
-    # try:
+    try:
         reservations=get_reservations()
         return render_template("/admin/top.html",reservations=reservations)
-    # except:
-    #     return render_template("/admin/message.html",message="view failed")
+    except:
+        return render_template("/admin/message.html",message="view failed")
 
 
 @app.route('/admin/delete/<int:id>')
@@ -237,8 +245,8 @@ def delete(id):
         name,number,ketchup,mustard,reservationTime = getOrderHistory(id)
         destroy(id)
         # これはたぶんいるけど T F のどちらにするべき
-        update_nickname_status1(id=id,new_status=False)
-        addReceived(name,number)
+        update_nickname_status2(Nickname, name, new_status=True)
+        addReceived(name,int(number))
         return redirect(url_for("view",message="delete success"))
     except:
         return redirect(url_for("view",message="delete failed"))
