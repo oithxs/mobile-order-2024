@@ -7,6 +7,7 @@ RUN pip install Flask-SQLAlchemy
 RUN pip install PyMySQL
 RUN pip install python-dotenv
 RUN pip install SQLAlchemy
+RUN pip install cryptography
 ARG UID=1000
 ARG GID=1000
 ARG USERNAME=app

@@ -187,7 +187,7 @@ import datetime
 @app.route('/bakingCheck')
 def BakingCheck():
     # 焼かなければならない数を取得
-    return render_template("bakingCheck.html")
+    return render_template("admin/bakingCheck.html")
 
 # 焼かなければならない数をリセットするページ
 @app.route('/bakingCountReset')
