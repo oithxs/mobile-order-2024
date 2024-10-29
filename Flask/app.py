@@ -165,21 +165,57 @@ def login_required(func):
 #################################################ルーティング部#################################################
 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 """
-
+# /の場合の遷移
 @app.route('/')
-def top():
+def index():
+    return redirect("/top")
 
-    show_nickname(get_nicknames())
 
-    update_nickname_status(Nickname,2,True)
+#トップページ
+@app.route('/top',methods=['GET'])
+def top_user():
+    return render_template("user/top.html")
 
-    add_reservation("枚方太郎",10,True,False,datetime.now())
 
-    show_reservation(get_reservations())
+#お客さんが注文するページ
+@app.route('/orders/order',methods=['GET'])
+def order():
 
-    update_reservation_by_id(1,"紺扉宇太",120,False,False,datetime.now())
+    nickname = Nickname.query.all()
+    return render_template("user/order.html",nickname)
 
-    return 'ok'
+#注文確認のページ
+@app.route('/orders/confirm',methods=['GET'])
+def confirm():
+    return render_template("user/confirm.html")
+
+#注文完了のページ
+@app.route('/orders/result',methods=['GET','POST'])
+def result():
+    if request.method == 'GET':
+        return render_template("user/result.html")
+    if request.method == 'POST':
+        new_reservation = Post()
+        new_reservation.name = request.form['name']
+        new_reservation.number = request.form['number']
+        new_reservation.ketchup = request.form['ketchup']
+        new_reservation.mustard = request.form['mustard']
+        new_reservation.reservationTime = request.form['reservationTime']
+        db.session.add(new_reservation)
+        db.session.commit()
+        return render_template("usr/result.html")
+
+
+#エラーページ
+@app.route('/orders/error',methods=['GET'])
+def error():
+    return render_template("error.html")
+
+#注文履歴のページ
+@app.route('/orders/history/<int:id>',methods=['GET'])
+def history(id):
+    reservation = Reservation.query.get(id)
+    return render_template("history.html",reservation)
 
 
 @app.route('/admin/View')
