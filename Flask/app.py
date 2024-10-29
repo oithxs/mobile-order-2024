@@ -23,7 +23,7 @@ def order():
 
     order_data = {
         "nickname": "ドッグフランク",
-        "isOrderLeft": True
+        "isOrderLeft": True              # 注文可能かどうか
     }
 
     if(order_data['isOrderLeft']):
