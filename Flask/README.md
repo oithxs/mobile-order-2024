@@ -7,6 +7,7 @@
 requirementsに分ける前にbranchを切っていたので，Dockerfileに書いていますが，requirementsで大丈夫です．
 `pip install SQLAlchemy`
 `pip install cryptography`
+↑暗号化用のライブラリです．ないとエラーが出ます．
 
 焼かなければならないフランクフルトがある場合には，音が出るように実装していますが，直で，/bakingCheckにアクセスすると正しく動作しない（音が出ない）のでご注意ください．
 
