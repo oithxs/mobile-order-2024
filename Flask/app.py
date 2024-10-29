@@ -30,7 +30,7 @@ class Reservation(db.Model):
     ketchup = db.Column(db.Boolean)
     mustard = db.Column(db.Boolean)
     reservationTime = db.Column(db.DateTime)
-    
+
 class Nickname(db.Model):
     __tablename__ = 'nickname'
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
@@ -42,6 +42,7 @@ class Received(db.Model):
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     name = db.Column(db.Text())
     number = db.Column(db.Integer)
+    
 
 #----------------------------------------------------------------------------
 ## 追加内容
@@ -62,6 +63,7 @@ class Reservation2(Base):
     mustard = Column(Boolean)
     reservationTime = Column(DateTime)
     
+
 # 焼き時間を環境変数から読み取る
 bakingTime = int(os.environ['BAKINGTIME']) # 焼き時間は分
 
@@ -185,7 +187,7 @@ import datetime
 @app.route('/bakingCheck')
 def BakingCheck():
     # 焼かなければならない数を取得
-    return render_template("admin/bakingCheck.html")
+    return render_template("bakingCheck.html")
 
 # 焼かなければならない数をリセットするページ
 @app.route('/bakingCountReset')
