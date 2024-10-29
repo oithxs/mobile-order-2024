@@ -62,20 +62,6 @@ class Reservation2(Base):
     mustard = Column(Boolean)
     reservationTime = Column(DateTime)
     
-class Nickname2(Base):
-    __tablename__ = 'nickname'
-    id = Column(Integer,primary_key=True,autoincrement=True)
-    name = Column()
-    status = Column(Boolean)
-
-class Received2(Base):
-    __tablename__ = 'received'
-    id = Column(Integer,primary_key=True,autoincrement=True)
-    name = Column(String(255))
-    number = Column(Integer)
-
-
-
 # 焼き時間を環境変数から読み取る
 bakingTime = int(os.environ['BAKINGTIME']) # 焼き時間は分
 
