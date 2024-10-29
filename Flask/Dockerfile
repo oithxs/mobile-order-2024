@@ -6,6 +6,7 @@ RUN pip install Flask
 RUN pip install Flask-SQLAlchemy
 RUN pip install PyMySQL
 RUN pip install python-dotenv
+RUN pip install SQLAlchemy
 ARG UID=1000
 ARG GID=1000
 ARG USERNAME=app
