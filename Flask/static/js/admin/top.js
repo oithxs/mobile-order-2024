@@ -1,6 +1,6 @@
 function create_html(reservation){
     html = `
-    <tr>
+    <tr class="${(reservation.name[0] == "*")?"called":""}">
         <td>${reservation.name}</td>
         <td>${reservation.number}</td>
         <td>
@@ -9,9 +9,22 @@ function create_html(reservation){
         <td>
             <input type="checkbox" class="mustard" disabled="disabled" ${(reservation.mustard)?"checked":""}>
         </td>
-        <td>${reservation.reservationTime}</td>
         <td>
-            <input type="button" class="delete" value="受け取り">
+            ${(reservation.reservationTime)?
+                (reservation.reservationTime).substr(11,8):
+                "現地受け取り"
+            }
+        </td>
+        <td>
+            <input type="button" class="delete-button" value="受け取り">
+        </td>
+        <td>
+            ${(reservation.name[0] == "*")?"":
+                '<input type="button" class="called-button" value="呼び出し済">'
+            }
+        </td>
+        <td>
+            <input type="button" class="edit-button" value="編集">
         </td>
     </tr>
     `;
