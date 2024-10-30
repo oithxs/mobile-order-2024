@@ -1,5 +1,19 @@
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
+    <style>
+        /* メッセージのスタイル */
+        .delete-message {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none; /* 初期は非表示 */
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -62,13 +76,29 @@
         {% endfor %}
     </tbody>
 </table>
+
+<div id="delete-message" class="delete-message">
+    削除しました
+</div>
     
 {% endblock %}
 
 {% block javascript %}
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const dataFromFlask = params.get('data');
+     const params = new URLSearchParams(window.location.search);
+     const dataFromFlask = params.get('data'); 
+    
+    // 削除メッセージを表示する関数
+    function showDeleteMessage() {
+        const message = document.getElementById('delete-message');
+        message.style.display = 'block';
+
+        // 5秒後にメッセージを非表示にする
+        setTimeout(() => {
+            message.style.display = 'none';
+            document.getElementById(`delete-form-${index}`).submit();
+        }, 5000);
+    }
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
 {% endblock %}
