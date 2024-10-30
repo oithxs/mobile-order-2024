@@ -252,18 +252,27 @@ def delete(id):
         return redirect(url_for("view",message="delete failed"))
 
 
-@app.route('/admin/edit/<int:id>')
+@app.route('/admin/edit/<int:id>',methods=['POST'])
 @login_required
 def edit(id):
     try:
-        name,number,ketchup,mustard,datetime = None,None,None,None,None
-        """
-        request.formによって振り分ける
-        """
-        # データ編集関数 or メソッド
-        # 引数 id
-        update_nickname_status(id,name,number,ketchup,mustard,datetime)
-        return redirect(url_for("view",message="edit success"))
+        # 全部のデータが来る想定、
+        if request.method == 'POST':
+            form_data = request.form.to_dict()
+
+            update_reservation_by_id(
+                id,
+                str(form_data['name']),
+                int(form_data['number']),
+                bool(form_data['ketchup']),
+                bool(form_data['mustard']),
+                dt.strptime(form_data['reservationTime'], '%Y-%m-%d %H:%M:%S')
+            )
+            return redirect(url_for("view",message="edit success"))
+
+
+        else:
+            return "<h1>Not Found</h1><p>メソッド違い</p>"
     except:
         return redirect(url_for("view",message="edit failed"))
 
