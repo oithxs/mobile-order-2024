@@ -18,7 +18,7 @@ function create_html(reservation){
                 }
             </td>
             <td>
-                <input type="button" class="delete-button" value="受け取り">
+                <input type="button" onclick="location.href='/admin/delete/${reservation.id}'" class="delete-button" value="受け取り">
             </td>
             <td>
                 <input type="button" class="${(reservation.name[0] == "*")?"no-button":"called-button"}" value="呼び出し">
@@ -31,30 +31,30 @@ function create_html(reservation){
     }else{//編集時の画面
         html = `
         <tr class="${(reservation.name[0] == "*")?"called":""}">
-            <form>
+            <form action="/admin/edit/${reservation.id}" method="post">
                 <td>
-                    <input type="text" value="${reservation.name}" class="textbox">
+                    <input type="text" name="name" value="${reservation.name}" class="textbox">
                 </td>
                 <td>
-                    <input type="number" value="${reservation.number}" max="20" class="textbox">
+                    <input type="number" name="number" value="${reservation.number}" max="20" class="textbox">
                 </td>
                 <td>
-                    <input type="checkbox" class="ketchup" ${(reservation.ketchup)?"checked":""}>
+                    <input type="checkbox" name="ketchup" class="ketchup" ${(reservation.ketchup)?"checked":""}>
                 </td>
                 <td>
-                    <input type="checkbox" class="mustard" ${(reservation.mustard)?"checked":""}>
+                    <input type="checkbox" name="mustard" class="mustard" ${(reservation.mustard)?"checked":""}>
                 </td>
                 <td>
-                    <input type="text" value="${reservation.reservationTime}" size="8" class="textbox">
+                    <input type="text" name="reservationTime" value="${reservation.reservationTime}" size="8" class="textbox">
                 </td>
-            <td>
-                <input type="button" class="no-button" value="受け取り">
-            </td>
-            <td>
-                <input type="button" class="no-button" value="呼び出し">
-            </td>
                 <td>
-                    <input type="button" class="edit-button" value="完了">
+                    <input type="button" class="no-button" value="受け取り">
+                </td>
+                <td>
+                    <input type="button" class="no-button" value="呼び出し">
+                </td>
+                <td>
+                    <input type="submit" class="edit-button" value="完了">
                 </td>
             </form>
         </tr>
