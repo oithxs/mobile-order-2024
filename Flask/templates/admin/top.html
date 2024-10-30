@@ -37,11 +37,13 @@
             ketchup: ("{{ data['ketchup'] }}" == "True")? true : false,
             mustard: ("{{ data['mustard'] }}" == "True")? true : false,
             reservationTime: "{{ data['reservationTime'] }}",
+            edit: false,
         }
         reservations.push(reservation);
     }
     // {% endfor %}
     console.log(reservations);
-    print_table(reservations);
+    global_reservations = reservations;
+    print_table();
 </script>
 {% endblock %}

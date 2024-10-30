@@ -69,55 +69,53 @@ input[type="checkbox"]:checked::after {
     transform: rotate(45deg); /* チェックマークを回転 */
 }
 
-.delete-button{
-    background-color: #ff4d4d;
-    color: #fff;
+input[type="button"] {
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
     font-weight: bold;
 }
+.delete-button{
+    background-color: #ff4d4d;
+    color: #fff;
+    transition: background-color 0.3s;
+}
 .delete-button:hover {
-    background-color: #e63939; /* 削除ボタンのホバー時背景色 */
+    background-color: #e63939;
 }
 .called-button{
     background-color: #317834;
     color: #ffffff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s;
-    font-weight: bold;
 }
 .called-button:hover {
-    background-color: #49c55a; /* 削除ボタンのホバー時背景色 */
-}
-.delete-button{
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: bold;
-}
-.delete-button:hover {
-    background-color: #e63939; /* 削除ボタンのホバー時背景色 */
+    background-color: #49c55a;
 }
 .edit-button{
     background-color: #016ec8;
     color: #ffffff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s;
-    font-weight: bold;
 }
 .edit-button:hover {
-    background-color: #1b54ab; /* 削除ボタンのホバー時背景色 */
+    background-color: #1b54ab;
+}
+.no-button{
+    background-color: #a3a3a3;
+    color: #ffffff;
+}
+
+.textbox {
+    font-size: 100%;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #0088ff;
+    text-align: center;
+}
+.textbox:focus {
+    outline: none;
+    border-bottom: 4px solid #ff0000;
+}
+input[type="number"].textbox {
+    width: 100px;
 }
