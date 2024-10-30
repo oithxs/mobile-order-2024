@@ -12,5 +12,5 @@ document.querySelector('a[href="http://localhost:5000/admin/delete/0"]').addEven
     setTimeout(function() {
         messageWindow.classList.remove('active'); // メッセージのクラスを削除
         messageWindow.style.display = 'none'; // メッセージを非表示
-    }, 3000);
+    }, 5000);
 });
