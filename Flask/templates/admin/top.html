@@ -1,5 +1,6 @@
 {% block css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -21,30 +22,20 @@
         <!-- top.jsから書き込み -->
     </tbody>
 </table>
+
+<div id="message-window">
+    <div>
+        <span class="highlight">削除しました</span>
+    </div>
+</div>
+
+
     
 {% endblock %}
 
 {% block javascript %}
 <script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
 <script>
-    const reservations = [];
-    // ！！！　↓のコメントを消さない↓　！！！
-    // {% for data in reservations %}
-    {
-        const reservation = {
-            id: Number("{{ data['id'] }}"),
-            name: "{{ data['name'] }}",
-            number: Number("{{ data['number'] }}"),
-            ketchup: ("{{ data['ketchup'] }}" == "True")? true : false,
-            mustard: ("{{ data['mustard'] }}" == "True")? true : false,
-            reservationTime: "{{ data['reservationTime'] }}",
-            edit: false,
-        }
-        reservations.push(reservation);
-    }
-    // {% endfor %}
-    console.log(reservations);
-    global_reservations = reservations;
-    print_table();
+    
 </script>
 {% endblock %}

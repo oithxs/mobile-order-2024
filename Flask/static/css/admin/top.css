@@ -119,3 +119,42 @@ input[type="button"] {
 input[type="number"].textbox {
     width: 100px;
 }
+
+#message-window {
+    position: fixed; /* 固定配置で画面の下中央に配置 */
+    left: 50%; /* 左から50% */
+    bottom: 20px; /* 下から20px */
+    transform: translateX(-50%); /* 中央に移動 */
+    background-color: #4caf50; /* 背景色を緑に */
+    color: #ffffff; /* 文字色を白に */
+    padding: 15px 25px; /* 内側の余白を増やす */
+    border-radius: 10px; /* 角を丸くする */
+    font-size: 1.5em; /* フォントサイズを大きくする */
+    text-align: center; /* テキストを中央揃え */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* より強い影を追加 */
+    z-index: 1000; /* 他の要素の上に表示 */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* アニメーションの追加 */
+    transform: translate(-50%, 20px); /* 初期位置を下に設定 */
+    opacity: 0; /* 初期状態で透明に */
+    font-family: 'Roboto', sans-serif; /* 基本フォントをRobotoに */
+}
+
+#message-window.active {
+    transform: translate(-50%, 0); /* メッセージ表示時の位置 */
+    opacity: 1; /* 表示時に不透明 */
+}
+
+/* 強調したい部分のスタイル */
+#message-window span {
+    font-family: 'Montserrat', sans-serif; /* 強調フォントをMontserratに */
+    font-weight: 700; /* ボールドにする */
+}
+
+.highlight {
+    font-family: 'Montserrat', sans-serif; /* おしゃれなフォントを適用 */
+    font-weight: 700; /* ボールドにする */
+    font-size: 1.5em; /* フォントサイズを大きくする（必要に応じて調整） */
+}
+
+
+
