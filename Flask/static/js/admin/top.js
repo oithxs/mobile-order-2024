@@ -1,3 +1,19 @@
+const url = new URL(window.location.href)
+const message = url.searchParams.get("message");
+const message_box = document.getElementById("message");
+const message_window = document.getElementById("message-window");
+
+if(message){//メッセージの表示
+    message_box.innerText = message;
+    message_window.classList.add('active');
+    setTimeout(()=>{
+        message_window.classList.remove('active');
+    }, 5000)
+}
+
+const table = document.getElementById("main-table");
+let global_reservations;
+
 function create_html(reservation){
     let html;
     if(!reservation.edit){
@@ -21,7 +37,14 @@ function create_html(reservation){
                 <input type="button" onclick="location.href='/admin/delete/${reservation.id}'" class="delete-button" value="受け取り">
             </td>
             <td>
-                <input type="button" class="${(reservation.name[0] == "*")?"no-button":"called-button"}" value="呼び出し">
+                <form action="/admin/edit/${reservation.id}" method="post">
+                    <hidden name="name">${'*' + reservation.name}</hidden>
+                    <hidden name="number">${reservation.number}</hidden>
+                    <hidden name="ketchup">${reservation.ketchup}</hidden>
+                    <hidden name="mustard">${reservation.mustard}</hidden>
+                    <hidden name="reservationTime">${reservation.reservationTime}</hidden>
+                    <input type="submit" class="${(reservation.name[0] == "*")?"no-button":"called-button"}" value="呼び出し">
+                </form>
             </td>
             <td>
                 <input type="button" class="edit-button" value="編集" onclick="edit_set(${reservation.id})">
@@ -70,9 +93,9 @@ function edit_set(id){
     }
     print_table();
 }
+function edit_called(id){
 
-const table = document.getElementById("main-table");
-let global_reservations;
+}
 
 function print_table(){
     let table_html = "";

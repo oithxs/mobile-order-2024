@@ -20,7 +20,10 @@
         <!-- top.jsから書き込み -->
     </tbody>
 </table>
-    
+
+<div id="message-window">
+    <span id="message" class="highlight">削除</span>
+</div>
 {% endblock %}
 
 {% block javascript %}
@@ -42,7 +45,6 @@
         reservations.push(reservation);
     }
     // {% endfor %}
-    console.log(reservations);
     global_reservations = reservations;
     print_table();
 </script>
