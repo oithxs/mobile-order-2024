@@ -30,10 +30,7 @@ function create_html(reservation){
                 <input type="checkbox" class="mustard" disabled="disabled" ${(reservation.mustard)?"checked":""}>
             </td>
             <td>
-                ${(reservation.reservationTime)?
-                    (reservation.reservationTime).substr(11,8):
-                    "現地受け取り"
-                }
+                ${(reservation.reservationTime).substr(11,8)}
             </td>
             <td>
                 <input type="button" onclick="location.href='/admin/delete/${reservation.id}'" class="delete-button" value="受け取り">
