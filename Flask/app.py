@@ -122,11 +122,6 @@ def delete():
     name = request.form['ニックネーム']
     return f"Delete: {name}"
 
-#/adminのシステムメッセージのページ
-@app.route('/admin/msg')
-def system_message():
-    return render_template("/admin/message.html")
-
 #レイアウト確認ページ
 @app.route('/layout')
 def layout():
