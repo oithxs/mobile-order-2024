@@ -25,6 +25,13 @@
         <div class="status">注文状況</div>
       </div>
       {% endfor %}
+      <button id="deleteAllHistory" type="button">履歴を削除</button>
+
+      <dialog>
+          <p>全ての履歴を削除します。よろしいですか？</p>
+          <button id="yes", type="button">はい</button>
+          <button id="no", type="button">いいえ</button>
+      </dialog>
     {% else %}
     <h1>注文履歴はありません</h1>
     {% endif %}
