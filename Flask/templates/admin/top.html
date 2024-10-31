@@ -1,51 +1,54 @@
-{% block css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>管理画面</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>ニックネーム</th>
+                    <th>本数</th>
+                    <th>ケチャップ</th>
+                    <th>マスタード</th>
+                    <th>予約時刻</th>
+                    <th>     </th>
+                    <th>     </th>
+                    <th>     </th>
+                </tr>
+            </thead>
+            <tbody id="main-table">
+                <!-- top.jsから書き込み -->
+            </tbody>
+        </table>
 
-{% block content %}
-<table>
-    <thead>
-        <tr>
-            <th>ニックネーム</th>
-            <th>本数</th>
-            <th>ケチャップ</th>
-            <th>マスタード</th>
-            <th>予約時刻</th>
-            <th>     </th>
-            <th>     </th>
-            <th>     </th>
-        </tr>
-    </thead>
-    <tbody id="main-table">
-        <!-- top.jsから書き込み -->
-    </tbody>
-</table>
+        <div id="message-window">
+            <span id="message" class="highlight">削除</span>
+        </div>
 
-<div id="message-window">
-    <span id="message" class="highlight">削除</span>
-</div>
-{% endblock %}
-
-{% block javascript %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
-<script>
-    const reservations = [];
-    // ！！！　↓のコメントを消さない↓　！！！
-    // {% for data in reservations %}
-    {
-        const reservation = {
-            id: Number("{{ data['id'] }}"),
-            name: "{{ data['name'] }}",
-            number: Number("{{ data['number'] }}"),
-            ketchup: ("{{ data['ketchup'] }}" == "True")? true : false,
-            mustard: ("{{ data['mustard'] }}" == "True")? true : false,
-            reservationTime: "{{ data['reservationTime'] }}",
-            edit: false,
-        }
-        reservations.push(reservation);
-    }
-    // {% endfor %}
-    global_reservations = reservations;
-    print_table();
-</script>
-{% endblock %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
+        <script>
+            const reservations = [];
+            // ！！！　↓のコメントを消さない↓　！！！
+            // {% for data in reservations %}
+            {
+                const reservation = {
+                    id: Number("{{ data['id'] }}"),
+                    name: "{{ data['name'] }}",
+                    number: Number("{{ data['number'] }}"),
+                    ketchup: ("{{ data['ketchup'] }}" == "True")? true : false,
+                    mustard: ("{{ data['mustard'] }}" == "True")? true : false,
+                    reservationTime: "{{ data['reservationTime'] }}",
+                    edit: false,
+                }
+                reservations.push(reservation);
+            }
+            // {% endfor %}
+            global_reservations = reservations;
+            print_table();
+        </script>
+    </body>
+</html>

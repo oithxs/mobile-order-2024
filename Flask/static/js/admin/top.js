@@ -37,12 +37,12 @@ function create_html(reservation){
                 <input type="button" onclick="location.href='/admin/delete/${reservation.id}'" class="delete-button" value="受け取り">
             </td>
             <td>
-                <form action="/admin/edit/${reservation.id}" method="post">
-                    <hidden name="name">${'*' + reservation.name}</hidden>
-                    <hidden name="number">${reservation.number}</hidden>
-                    <hidden name="ketchup">${reservation.ketchup}</hidden>
-                    <hidden name="mustard">${reservation.mustard}</hidden>
-                    <hidden name="reservationTime">${reservation.reservationTime}</hidden>
+                <form id="called-form" action="/admin/edit/${reservation.id}" method="post">
+                    <input type="hidden" name="name" value="${'*'+reservation.name}">
+                    <input type="hidden" name="number" value="${reservation.number}">
+                    <input type="hidden" name="ketchup" value="${reservation.ketchup}">
+                    <input type="hidden" name="mustard" value="${reservation.mustard}">
+                    <input type="hidden" name="reservationTime" value="${reservation.reservationTime}">
                     <input type="submit" class="${(reservation.name[0] == "*")?"no-button":"called-button"}" value="呼び出し">
                 </form>
             </td>
@@ -54,21 +54,21 @@ function create_html(reservation){
     }else{//編集時の画面
         html = `
         <tr class="${(reservation.name[0] == "*")?"called":""}">
-            <form action="/admin/edit/${reservation.id}" method="post">
+            <form action="/admin/edit/${reservation.id}" method="post" id="edit-form-${reservation.id}">
                 <td>
-                    <input type="text" name="name" value="${reservation.name}" class="textbox">
+                    <input form="edit-form-${reservation.id}" type="text" name="name" value="${reservation.name}" class="textbox">
                 </td>
                 <td>
-                    <input type="number" name="number" value="${reservation.number}" max="20" class="textbox">
+                    <input form="edit-form-${reservation.id}" type="number" name="number" value="${reservation.number}" max="20" class="textbox">
                 </td>
                 <td>
-                    <input type="checkbox" name="ketchup" class="ketchup" ${(reservation.ketchup)?"checked":""}>
+                    <input form="edit-form-${reservation.id}" type="checkbox" name="ketchup" class="ketchup" ${(reservation.ketchup)?"checked":""}>
                 </td>
                 <td>
-                    <input type="checkbox" name="mustard" class="mustard" ${(reservation.mustard)?"checked":""}>
+                    <input form="edit-form-${reservation.id}" type="checkbox" name="mustard" class="mustard" ${(reservation.mustard)?"checked":""}>
                 </td>
                 <td>
-                    <input type="text" name="reservationTime" value="${reservation.reservationTime}" size="8" class="textbox">
+                    <input form="edit-form-${reservation.id}" type="text" name="reservationTime" value="${reservation.reservationTime}" size="8" class="textbox">
                 </td>
                 <td>
                     <input type="button" class="no-button" value="受け取り">
@@ -77,7 +77,7 @@ function create_html(reservation){
                     <input type="button" class="no-button" value="呼び出し">
                 </td>
                 <td>
-                    <input type="submit" class="edit-button" value="完了">
+                    <input form="edit-form-${reservation.id}" type="submit" class="edit-button" value="完了">
                 </td>
             </form>
         </tr>
