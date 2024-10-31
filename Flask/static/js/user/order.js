@@ -45,6 +45,18 @@ window.onload = function () {
     document.getElementById('yes').addEventListener("click", function() {
         dialog.close();
     });
+
+    // マイナスのボタンの処理
+    document.getElementById('decrement').addEventListener('click', function() {
+
+    });
+
+    // プラスのボタンの処理
+    document.getElementById('increment').addEventListener('click', function() {
+        let count = document.getElementById('count');
+        count.value = String(parseInt(count.value) + 1);
+        
+    });
 };
 
 // 受け取り時刻の選択欄の活性・非活性化

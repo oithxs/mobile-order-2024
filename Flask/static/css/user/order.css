@@ -1,41 +1,106 @@
 .container{
+    min-height: 853px;
     width: 100%;
     max-width: 960px;
     margin-right: auto;
     margin-left: auto;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    /* padding-top: 20px;
+    padding-bottom: 20px; */
+}
+
+.large{
+    font-size: 32px;
 }
 
 .inputContents{
     display: flex;
-    width: 100%;
+    width: 50%;
     justify-content: space-around;
-    background-color:yellowgreen;
+    align-items: center;
+    /* background-color: aquamarine; */
+    /* border: solid 1px; */
+}
+
+.spinButton{
+    display: flex;
+    align-items: center;
+}
+
+input[name="count"]{
+    text-align: center;
+    /* font-size: 32px; */
+    width: 2em;
+    max-width: 100%;
+    padding-left: 10px;
+    border: none;
+    outline: none;
+}
+
+.spin{
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
 }
 
 .frankfurt{
+    height: 100px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: beige;
-}
-
-.frankfurt h1{
-    align-items: center;
+    justify-content: space-around;
+    /* background-color: bisque; */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /* border: solid 1px; */
 }
 
 .topping{
-    background-color: beige;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /* border: solid 1px; */
 }
 
 .reservationTime{
-    background-color: beige;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /* border: solid 1px; */
 }
 
-.bottomMenu{
-    background-color: beige;
+.footerMenu{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border: solid 1px;
+    background-color: aquamarine;
+}
+
+.footerContents{
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
 }

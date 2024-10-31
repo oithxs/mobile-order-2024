@@ -11,14 +11,20 @@
         <form action="/confirm" id="orderForm" method="POST">
             <div class="container">
                 <div class="frankfurt">
-                    <h1>フランクフルト</h1>
+                    <h3>フランクフルト</h3>
                     <div class="inputContents">
-                        <label for="count">￥ 200</label>
-                        <input type="number" value="1" min="1" max="10" name="count" id="count">
+                        <label for="count">￥ <span class="large">200</span></label>
+                        <div class="spinButton">
+                            <button type="button" id="decrement" class="spin">－</button>
+                            <!-- <div class="minus">－</div> -->
+                            <input type="number" class="large" value="1" min="1" max="10" name="count" id="count" readonly>
+                            <!-- <div class="plus">＋</div> -->
+                            <button type="button" id="increment" class="spin">＋</button>
+                        </div>
                     </div>
                 </div>
                 <div class="topping">
-                    <h1>トッピング</h1>
+                    <h3>トッピング</h3>
                     <div class="toggleButton">
                         <label for="ketchup">ケチャップ</label>
                         <label for="ketchup">
@@ -43,7 +49,7 @@
                     </div>
                 </div>
                 <div class="reservationTime">
-                    <h1>受け取り時間</h1>
+                    <h3>受け取り時間</h3>
                     <div class="toggleButton">
                         <label for="wantToReserve">
                             <input type="radio" id="wantToReserve0" name="wantToReserve" value="false" onclick="changeDisabled()" checked>
@@ -54,22 +60,27 @@
                             時間指定
                         </label>
                     </div>
-                    <div class="setReservationTime">
-                        <label for="reservationTime"></label>
-                        <input type="hidden" id="reservationTime0" name="reservationTime" value="none">
-                        <input type="time" id="reservationTime1" name="reservationTime" value="" disabled="disabled" required>
-                        <p>
-                            ※予約可能時刻は、現在時刻より15分後からの時刻です。
-                        </p>
-                    </div>
+                    <!-- <div class="setReservationTime"> -->
+                    <!-- <label for="reservationTime"></label> -->
+                    <input type="hidden" id="reservationTime0" name="reservationTime" value="none">
+                    <input type="time" id="reservationTime1" name="reservationTime" value="" disabled="disabled" required>
+                    <p>
+                        ※予約可能時刻は、現在時刻より15分後からの時刻です。
+                    </p>
+                    <!-- </div> -->
                 </div>
-                <div class="bottomMenu">
-                    <button type="button">Top</button>
-                    <span>合計</span>
-                    <span id="resultMoney">150</span>
-                    <span>円</span>
+            </div>
+            <div class="footerMenu">
+                <div class="footerContents">
+                    <a href="/top">Top</a>
+                    <div class="resultMoney">
+                        <span>合計</span>
+                        <span id="resultMoney">150</span>
+                        <span>円</span>
+                    </div>
                     <button type="submit">注文確認へ</button>
                 </div>
+                <!-- <button type="button" id="backToTop">Top</button> -->
             </div>
         </form>
 
