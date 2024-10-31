@@ -10,14 +10,12 @@
     <body>
         <form action="/confirm" id="orderForm" method="POST">
             <!-- 送られてきたデータを注文確認ページに送る -->
-            <input type="hidden" name="nickname" value={{ order_data.nickname }}>
-            <input type="hidden" name="isOrderLeft" value={{ order_data.isOrderLeft }}>
 
             <h1>注文</h1>
             <label for="frankfurt">フランクフルト ￥150</label>
             <input type="number" value="1" min="1" max="10" name="count" id="count">
             <h1>トッピング</h1>
-            <div name="toggleButton">
+            <div class="toggleButton">
                 <label for="ketchup">ケチャップ</label>
                 <label for="ketchup">
                     <input type="radio" name="ketchup" value="true" checked>
@@ -28,7 +26,7 @@
                     なし
                 </label>
             </div>
-            <div name="toggleButton">
+            <div class="toggleButton">
                 <label for="mustard">マスタード</label>
                 <label for="mustard">
                     <input type="radio" name="mustard" value="true" checked>
@@ -39,10 +37,26 @@
                     なし
                 </label>
             </div>
-            <h1>予約</h1>
+            <h1>受け取り時間</h1>
             <div>
-                <label for="reservationTime">予約時刻</label>
-                <input type="time" id="reservationTime" name="reservationTime" value="">
+                <div class="toggleButton">
+                    <label for="wantToReserve">
+                        <input type="radio" id="wantToReserve0" name="wantToReserve" value="false" onclick="changeDisabled()" checked>
+                        即時
+                    </label>
+                    <label for="wantToReserve">
+                        <input type="radio" id="wantToReserve1" name="wantToReserve" value="true" onclick="changeDisabled()">
+                        時間指定
+                    </label>
+                </div>
+                <div class="setReservationTime">
+                    <label for="reservationTime"></label>
+                    <input type="hidden" id="reservationTime0" name="reservationTime" value="none">
+                    <input type="time" id="reservationTime1" name="reservationTime" value="" disabled="disabled" required>
+                    <p>
+                        ※予約可能時刻は、現在時刻より15分後からの時刻です。
+                    </p>
+                </div>
             </div>
             <div>
                 <button type="button">Topページに戻る</button>
@@ -55,6 +69,14 @@
                 <button type="submit">注文確認画面へ</button>
             </div>
         </form>
+
+        <dialog>
+            <div>
+                <span id="correctTime"></span>
+                以降の時刻を選択して下さい。
+            </div>
+            <button type="button" id="yes">はい</button>
+        </dialog>
     </body>
     
 {% endblock %}
