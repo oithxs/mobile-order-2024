@@ -26,6 +26,7 @@
       </div>
       {% endfor %}
       <button id="deleteAllHistory" type="button">履歴を削除</button>
+      <a href="/top">topに戻る</a>
 
       <dialog>
           <p>全ての履歴を削除します。よろしいですか？</p>
@@ -36,6 +37,7 @@
       </dialog>
     {% else %}
     <h1>注文履歴はありません</h1>
+    <a href="/top">topに戻る</a>
     {% endif %}
   </body>
   <script type="text/javascript" src="{{ url_for('static', filename='js/user/sgrid.js') }}"></script>
