@@ -29,8 +29,10 @@
 
       <dialog>
           <p>全ての履歴を削除します。よろしいですか？</p>
-          <button id="yes", type="button">はい</button>
-          <button id="no", type="button">いいえ</button>
+          <form action="/history" id="redirectHistoryPage" method="GET">
+            <button id="yes", type="button">はい</button>
+            <button id="no", type="button">いいえ</button>
+          </form>
       </dialog>
     {% else %}
     <h1>注文履歴はありません</h1>
