@@ -10,7 +10,7 @@ order_DB = [ # 仮の注文DB
                 "time": "11:30",
                 "nickname": "Mr.Frankfurt",
                 "status": "Received",
-                "count": 3,
+                "count": 4,
                 "ketchup": True,
                 "mustard": True
             }
