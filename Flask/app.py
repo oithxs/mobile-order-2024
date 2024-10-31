@@ -247,9 +247,9 @@ def delete(id):
         # これはたぶんいるけど T F のどちらにするべき
         update_nickname_status2(Nickname, name, new_status=True)
         addReceived(name,int(number))
-        return redirect(url_for("view",message="delete success"))
+        return redirect(url_for("view",message="DeleteSuccess",type="message"))
     except:
-        return redirect(url_for("view",message="delete failed"))
+        return redirect(url_for("view",message="DeleteFailed",type="error"))
 
 
 @app.route('/admin/edit/<int:id>',methods=['POST'])
@@ -268,13 +268,13 @@ def edit(id):
                 bool(form_data['mustard']),
                 dt.strptime(form_data['reservationTime'], '%Y-%m-%d %H:%M:%S')
             )
-            return redirect(url_for("view",message="edit success"))
+            return redirect(url_for("view",message="EditSuccess",type="message"))
 
 
         else:
             return "<h1>Not Found</h1><p>メソッド違い</p>"
     except:
-        return redirect(url_for("view",message="edit failed"))
+        return redirect(url_for("view",message="EditFailed",type="error"))
 
 
 # @app.route('/admin/system/message')

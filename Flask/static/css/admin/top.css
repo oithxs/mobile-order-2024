@@ -137,6 +137,9 @@ input[type="number"].textbox {
     opacity: 0; /* 初期状態で透明に */
     font-family: 'Roboto', sans-serif; /* 基本フォントをRobotoに */
 }
+#message-window.error {
+    background-color: #db2727;
+}
 #message-window.active {
     transform: translate(-50%, 0); /* メッセージ表示時の位置 */
     opacity: 1; /* 表示時に不透明 */

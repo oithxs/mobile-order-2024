@@ -1,11 +1,13 @@
 const url = new URL(window.location.href)
 const message = url.searchParams.get("message");
+const message_type = url.searchParams.get("type");
 const message_box = document.getElementById("message");
 const message_window = document.getElementById("message-window");
 
 if(message){//メッセージの表示
     message_box.innerText = message;
     message_window.classList.add('active');
+    if(message_type=="error")message_window.classList.add("error");
     setTimeout(()=>{
         message_window.classList.remove('active');
     }, 5000)
