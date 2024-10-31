@@ -285,17 +285,12 @@ def delete(id):
         destroy(id)
         # これはたぶんいるけど T F のどちらにするべき
         update_nickname_status2(Nickname, name, new_status=True)
-<<<<<<< HEAD
-        addReceived(name, int(number))
-        return redirect(url_for("view", message="delete success"))
-    except:
-        return redirect(url_for("view", message="delete failed"))
-=======
+
         addReceived(name,int(number))
         return redirect(url_for("view",message="DeleteSuccess",type="message"))
     except:
         return redirect(url_for("view",message="DeleteFailed",type="error"))
->>>>>>> 0bb1d8a8334eb8eefd9f60a3fd4c8cfaead903f4
+
 
 
 @app.route("/admin/edit/<int:id>", methods=["POST"])
@@ -314,21 +309,17 @@ def edit(id):
                 bool(form_data["mustard"]),
                 dt.strptime(form_data["reservationTime"], "%Y-%m-%d %H:%M:%S"),
             )
-<<<<<<< HEAD
-            return redirect(url_for("view", message="edit success"))
-=======
+
             return redirect(url_for("view",message="EditSuccess",type="message"))
 
->>>>>>> 0bb1d8a8334eb8eefd9f60a3fd4c8cfaead903f4
 
         else:
             return "<h1>Not Found</h1><p>メソッド違い</p>"
     except:
-<<<<<<< HEAD
         return redirect(url_for("view", message="edit failed"))
-=======
+
         return redirect(url_for("view",message="EditFailed",type="error"))
->>>>>>> 0bb1d8a8334eb8eefd9f60a3fd4c8cfaead903f4
+
 
 
 # @app.route('/admin/system/message')
