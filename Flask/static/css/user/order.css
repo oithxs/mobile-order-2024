@@ -1,0 +1,41 @@
+.container{
+    width: 100%;
+    max-width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputContents{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    background-color:yellowgreen;
+}
+
+.frankfurt{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: beige;
+}
+
+.frankfurt h1{
+    align-items: center;
+}
+
+.topping{
+    background-color: beige;
+}
+
+.reservationTime{
+    background-color: beige;
+}
+
+.bottomMenu{
+    background-color: beige;
+}
