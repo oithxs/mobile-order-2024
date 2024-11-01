@@ -96,7 +96,7 @@ def history():
                 if nickname in order.values():
                     history_data.append(order) # データベースからニックネームをキーとして履歴データを取る
 
-        return render_template("/user/sgrid.html", history_data = history_data)
+        return render_template("/user/history.html", history_data = history_data)
 
 #エラーページ
 @app.route('/error')

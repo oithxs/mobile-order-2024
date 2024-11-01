@@ -15,81 +15,65 @@
     
     <div class="subheader">
       <h3>注文履歴</h3>
-      <svg class="return" version="1.1" height="40" width="40" viewBox="0 0 40 40">
-        <path class="line" d="M 10,20 L 20,10" />
-        <path class="line" d="M 10,20 L 20,30" />
-      </svg>
+
+      <a href="/top">
+      <div class="return">
+        <svg version="1.1" height="40" width="120" viewBox="0 0 120 40">
+          <line x1="10" y1="20" x2="20" y2="10" stroke="black"/>
+          <line x1="10" y1="20" x2="20" y2="30" stroke="black"/>
+          <text stroke-width="1" x="30" y="25">トップに戻る</text>
+        </svg>
+      </div>
+      </a>
     </div>
 
     <main>
       <ul class="card-list">
+        {% if history_data %}
+          {% for data in history_data|reverse %}
+            <li class="card-container" style="--white: true;">
+              <div class="history-card">
+                <div class="nickname">{{ data['nickname'] }}</div>
+                <div class="time">{{ data['reservationTime'] }}</div>
+                <div class="source">
+                  <div class="ketchap">
+                    ケチャップ: <!--半角空ける-->
+                    {% if data['ketchup'] == True %}
+                      <span>あり</span>
+                    {% else %}
+                      <span>なし</span>
+                    {% endif %}
+                  </div>
+                  <div class="mustard">
+                    マスタード: <!--半角空ける-->
+                    {% if data['mustard'] == True %}
+                      <span>あり</span>
+                    {% else %}
+                      <span>なし</span>
+                    {% endif %}
+                  </div>
+                </div>
+              <div class="number"><span>{{ data['count'] }}</span>本</div>
+              {% if data['status'] == "Receptable" %}
+                <div class="status" id="makeImg">受け取り待ち</div>
+              {% elif data['status'] == "Received" %}
+                <div class="status2" id="makeImg">受け取り完了</div>
+              {% endif %}
+            </li>
+          {% endfor %}
 
-        <li class="card-container" style="--white: true;">
-          <div class="history-card">
-            <div class="nickname">{{history_data.nickname}}</div>
-            <div class="time">{{history_data.time}}</div>
-            <div class="source">
-              <div class="ketchap">
-                ケチャップ: <!--半角空ける-->
-                {% if history_data.ketchup == True %}
-                  <span>あり</span>
-                {% else %}
-                  <span>なし</span>
-                {% endif %}
-              </div>
-              <div class="mustard">
-                マスタード: <!--半角空ける-->
-                {% if history_data.mustard == True %}
-                  <span>あり</span>
-                {% else %}
-                  <span>なし</span>
-                {% endif %}
-              </div>
-            </div>
-          <div class="number"><span>{{history_data.number}}</span>本</div>
-          {% if history_data.status == "Receptable" %}
-            <div class="status" id="makeImg">受け取り待ち</div>
-          {% elif history_data.status == "Received" %}
-            <div class="status2" id="makeImg">受け取り完了</div>
-          {% endif %}
-        </li>
+          <button id="deleteAllHistory" type="button">履歴を削除</button>
 
-        <li class="card-container" style="--white: true;">
-          <div class="history-card">
-            <div class="nickname">かばやき</div>
-            <div class="time">13:17</div>
-            <div class="source">
-              <div class="ketchap">ケチャップ: <span>なし</span></div>
-              <div class="mustard">マスタード: <span>なし</span></div>
-            </div>
-          <div class="number"><span>5</span>本</div>
-          <div class="status2" id="makeImg">受け取り完了</div>
-        </li>
-
-        <li class="card-container" style="--white: true;">
-          <div class="history-card">
-            <div class="nickname">大阪太郎</div>
-            <div class="time">12:35</div>
-            <div class="source">
-              <div class="ketchap">ケチャップ: <span>あり</span></div>
-              <div class="mustard">マスタード: <span>あり</span></div>
-            </div>
-          <div class="number"><span>1</span>本</div>
-          <div class="status2" id="makeImg">受け取り完了</div>
-        </li>
-
-        <li class="card-container" style="--white: true;">
-          <div class="history-card">
-            <div class="nickname">わさびのりこ</div>
-            <div class="time">11:30</div>
-            <div class="source">
-              <div class="ketchap">ケチャップ: <span>あり</span></div>
-              <div class="mustard">マスタード: <span>なし</span></div>
-            </div>
-          <div class="number"><span>3</span>本</div>
-          <div class="status2" id="makeImg">受け取り完了</div>
-        </li>
-
+          <dialog>
+            <p>全ての履歴を削除します。よろしいですか？</p>
+            <form action="/history" id="redirectHistoryPage" method="GET">
+              <button id="yes", type="button">はい</button>
+              <button id="no", type="button">いいえ</button>
+            </form>
+          </dialog>
+        {% else %}
+          <h1>注文履歴はありません</h1>
+        {% endif %}
       </ul>
     </main>
   </div>
