@@ -27,35 +27,74 @@ window.onload = function () {
     )
 
     // 予約時刻が現在時刻+数分より前の時間の場合はじく
-    const dialog = document.querySelector('dialog');
+    // const dialog = document.querySelector('dialog');
     
-    document.getElementById('orderForm').addEventListener("submit", function (e){
+    // document.getElementById('orderForm').addEventListener("submit", function (e){
+    //     if (document.getElementById('wantToReserve1').checked) {
+    //         const canReservationDate = new Date();
+    //         const reservationDate = new Date(formatDate(canReservationDate) + " " + document.getElementById('reservationTime1').value);
+            
+    //         if (reservationDate < canReservationDate.setMinutes(canReservationDate.getMinutes() + 15)) {
+    //             document.getElementById('correctTime').textContent = formatTime(canReservationDate);
+    //             dialog.showModal();
+    //             e.preventDefault();
+    //         }
+    //     }
+    // });
+
+    const dialog = document.querySelector('dialog');
+    document.getElementById('yes').addEventListener("click", function() {
+        dialog.close();
+    });
+
+    function isTimeValidate() {
         if (document.getElementById('wantToReserve1').checked) {
             const canReservationDate = new Date();
             const reservationDate = new Date(formatDate(canReservationDate) + " " + document.getElementById('reservationTime1').value);
             
             if (reservationDate < canReservationDate.setMinutes(canReservationDate.getMinutes() + 15)) {
                 document.getElementById('correctTime').textContent = formatTime(canReservationDate);
-                dialog.showModal();
-                e.preventDefault();
+                return false;
+            }
+            else {
+                return true;
             }
         }
-    });
+        else {
+            return true;
+        }
+    }
 
-    document.getElementById('yes').addEventListener("click", function() {
-        dialog.close();
+    // 注文確認へフォームを送信する処理
+    document.getElementById('goToConfirm').addEventListener('click', function() {
+        if (isTimeValidate()) {
+            document.getElementById('orderForm').submit();
+        }
+        else {
+            dialog.showModal();
+        }
     });
 
     // マイナスのボタンの処理
     document.getElementById('decrement').addEventListener('click', function() {
-
+        let count = document.getElementById('count');
+        if(Number(count.value) > 1) {
+            count.value = String(Number(count.value) - 1);
+            // 合計金額も変更する
+            money = document.getElementById("resultMoney");
+            money.innerText = 200 * count.value;
+        }
     });
 
     // プラスのボタンの処理
     document.getElementById('increment').addEventListener('click', function() {
         let count = document.getElementById('count');
-        count.value = String(parseInt(count.value) + 1);
-        
+        if(Number(count.value) < 15) {
+            count.value = String(Number(count.value) + 1);
+            // 合計金額も変更する
+            money = document.getElementById("resultMoney");
+            money.innerText = 200 * count.value;
+        }
     });
 };
 
