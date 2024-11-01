@@ -31,11 +31,11 @@ header {
 }
 
 .return {
-  stroke: #000;
   stroke-width: 3;
   stroke-linecap: round;
   position: absolute;
   left: 0;
+  text-align: center;
 }
 
 h3 {
