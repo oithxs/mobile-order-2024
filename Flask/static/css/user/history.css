@@ -1,0 +1,240 @@
+@charset "utf-8";
+@layer open-props, base, styles;
+
+body {
+  background-color: #ffffff;
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 88svh;
+  width: 100vw;
+}
+
+header {
+  display: flex;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+  top: 0;
+  background-color: #00A1E9;
+  color: #f8f8f8;
+}
+
+.subheader {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.return {
+  stroke: #000;
+  stroke-width: 3;
+  stroke-linecap: round;
+  position: absolute;
+  left: 0;
+}
+
+h3 {
+  margin: 0;
+  line-height: 40px;
+}
+
+main {
+  flex: 1;
+  overflow-y: scroll;
+  background-color: #f7f7f7;
+}
+
+.card-container {
+  container-name: weather;
+}
+
+@container style(--white: true){
+  .history-card {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+  }
+}
+
+@container style(--oit: true){
+  .history-card {
+    color: #ffffff;
+    background: linear-gradient(60deg, #00A1E9, #064583);
+  }
+}
+
+@container style(--rain: true) {
+  .history-card {
+    background: linear-gradient(140deg, #76c4f2, #2ecdbb);
+  }
+}
+
+@container style(--cloudy: true) {
+  .history-card {
+    background: linear-gradient(-60deg, #909da4, #adc0be);
+  }
+}
+
+@container style(--sunny: true) {
+  .history-card {
+    background: linear-gradient(-30deg, #ffff75, #ffbc41);
+  }
+}
+
+@container style(--sunny: true) and style(--cloudy: true) {
+    .history-card {
+      background: linear-gradient(24deg, #f0aec9, #a590ce);
+    }
+}
+
+@layer styles {
+  .nickname {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .time span {
+    font-weight: bold;
+  }
+  
+  .source {
+    margin-bottom: 1rem;
+  }
+
+  .source span {
+    font-weight: bold;
+  }
+  
+  .number {
+    font-size: 1.5rem;
+    position: absolute;
+    padding-right: 40px;
+    justify-self: flex-end;
+    align-self: center;
+  }
+
+  .number span {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .status {
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;/*文字色*/
+    background: #ffb900;
+    border: solid 3px #ffb900;/*線*/
+    border-radius: 20px;/*角の丸み*/
+  }
+
+  .status2 {
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;/*文字色*/
+    background: #20bf7a;
+    border: solid 3px #20bf7a;/*線*/
+    border-radius: 20px;/*角の丸み*/
+  }
+
+  .features {
+    align-self: end;
+  }
+  
+  .card-container {
+    display: grid;
+  }
+  
+  .history-card {
+    display: grid;
+    padding: 1.5rem;
+    /*border-radius: 0.5rem;*/
+    line-height: 1.2;
+    /*box-shadow: var(--shadow-4);*/
+    position: relative;
+  }
+  
+  .temps span,
+  .nickname span {
+    font-weight: 700;
+  }
+}
+
+@layer base {
+  body {
+    font-family: system-ui;
+  }
+  
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  .card-list {
+    display: grid;
+    /*grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));*/
+    max-width: 800px;
+    margin: auto;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+@layer open-props {
+  /*  https://open-props.style/  */
+  :root {
+    --shadow-4: 0 -2px 5px 0 hsl(var(--shadow-color) / calc(var(--shadow-strength) + 2%)), 0 1px 1px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)), 0 2px 2px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)), 0 5px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 4%)), 0 9px 9px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%)), 0 16px 16px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 6%));
+    --shadow-color: 220 3% 15%;
+    --shadow-strength: 5%;
+  }
+}
+
+.noHistory{
+  color: #3b3b3b;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.deleteButton{
+  margin-left: 20px;
+  background-color: #c6c6c6;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.5em 1em;
+}
+
+dialog[open]{
+  border: none;
+  margin: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+}
+
+dialog::backdrop {
+  background: rgba(0 0 0 / 32%);
+}
+
+dialog button {
+  align-self: flex-end;
+  background-color: #c6c6c6;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.5em 1em;
+}

@@ -1,0 +1,119 @@
+/* 基本スタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+.table-container {
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 50px;
+    border-collapse: collapse;
+    border-radius: 10px; /* 角を丸める */
+    overflow: hidden; /* 角の丸みを保持 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #fffafa;
+    text-align: center;
+}
+
+th {
+    text-align: center; /* ヘッダーを中央揃え */
+    background-color: #4a90e2;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eaeaea; /* セル間のボーダーを薄い灰色に */
+    transition: background-color 0.3s;
+}
+
+td:hover {
+    background-color: #f1f1f1;
+}
+
+.deleteButton{
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.deleteButton:hover {
+    background-color: #e63939; /* 削除ボタンのホバー時背景色 */
+}
+
+th:first-child,
+td:first-child {
+    border-top-left-radius: 10px; /* 左上の角を丸める */
+    border-bottom-left-radius: 10px; /* 左下の角を丸める */
+}
+
+th:last-child,
+td:last-child {
+    border-top-right-radius: 10px; /* 右上の角を丸める */
+    border-bottom-right-radius: 10px; /* 右下の角を丸める */
+}
+
+.checkbox-container {
+    display: flex; /* フレックスボックスを使用 */
+    align-items: center; /* 垂直方向に中央揃え */
+    justify-content: center; /* 水平方向に中央揃え */
+}
+
+/* チェックボックスを大きくする */
+input[type="checkbox"] {
+    -webkit-appearance: none; /* デフォルトのスタイルをリセット */
+    width: 24px; /* チェックボックスの幅 */
+    height: 24px; /* チェックボックスの高さ */
+    border: 2px solid #ccc; /* チェックボックスの枠線 */
+    border-radius: 4px; /* 角を少し丸める */
+    outline: none; /* フォーカス時のアウトラインを消す */
+    cursor: pointer; /* マウスカーソルをポインタに */
+    position: relative; /* チェックマークの位置を相対的にする */
+}
+
+/* チェックボックスにチェックが入ったときのスタイル */
+input[type="checkbox"]:checked.ketchup {
+    background-color: #ff4d4d; /* ケチャップ用の背景色（赤） */
+}
+
+input[type="checkbox"]:checked.mustard {
+    background-color: #ffcc00; /* マスタード用の背景色（黄色） */
+}
+
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 6px; /* チェックマークの位置 */
+    left: 10px; /* チェックマークの位置 */
+    width: 6px; /* チェックマークの幅 */
+    height: 12px; /* チェックマークの高さ */
+    border: solid white; /* チェックマークの色 */
+    border-width: 0 2px 2px 0; /* チェックマークの形 */
+    transform: rotate(45deg); /* チェックマークを回転 */
+}

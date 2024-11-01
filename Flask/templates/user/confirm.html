@@ -7,9 +7,91 @@
 {% endblock %}
 
 {% block content %}
-    <h1>注文確認ページです</h1>
+    <body>
+        <div class="subheader">
+            <h3>注文確認</h3>
+            <!-- この矢印ボタンで戻れるようにする -->
+            <svg class="return" version="1.1" height="40" width="40" viewBox="0 0 40 40" onclick="window.location.href = '/order';">
+                <path class="line" d="M 10,20 L 20,10" />
+                <path class="line" d="M 10,20 L 20,30" />
+            </svg>
+        </div>
+
+        <main>
+            <div class="container">
+                <table class="hyou1">
+                    <tr>
+                        <th><h3>フランクフルト</h3></th>
+                        <td> {{ order_data.count }} 本</td>
+                    </tr>
+                    <tr>
+                        <th><h3>ケチャップ</h3></th>
+                        <td>
+                            {% if order_data.ketchup == 'true' %}
+                            あり
+                            {% else %}
+                            なし
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>    
+                        <th><h3>マスタード</h3></th>
+                        <td>
+                            {% if order_data.mustard == 'true' %}
+                            あり
+                            {% else %}
+                            なし
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><h3>受け取り時間</h3></th>
+                        <td>
+                            {% if order_data.reservationTime == 'none' %}
+                            即時
+                            {% else %}
+                            {{ order_data.reservationTime }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                <div class="goukei">
+                    合計 ￥<span class="large">{{ order_data.count|int * 200 }}</span>
+                </div>
+                <div class="kotira">
+                    <p class="medium">こちらのご注文でよろしいですか？</p>
+                </div>
+                <div class="tyuumonb">
+                    <form action="/processing_order" id="confirmOrder" method="POST">
+                        <!-- <input type="hidden" name="nickname" value={{ order_data.nickname }}> -->
+                        <input type="hidden" name="count" value={{ order_data.count }}>
+                        <input type="hidden" name="ketchup" value={{ order_data.ketchup }}>
+                        <input type="hidden" name="mustard" value={{ order_data.mustard }}>
+                        <input type="hidden" id="reservationTime" name="reservationTime" value={{ order_data.reservationTime }}>
+                        <div class="pageButton" id="goToResult">
+                            <span>注文確定</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <dialog>
+            <div>
+                予約可能時刻を超過しています。<br>
+                受け取り時間を<span id="correctTime"></span>に変更しますがよろしいですか？
+            </div>
+            <div class="test">
+                <button type="button" id="yes">はい</button>
+                <button type="button" id="no">いいえ</button>
+            </div>
+        </dialog>
+    </body>
 {% endblock %}
 
 {% block javascript %}
+<script>
+    const reservationTime = '{{ order_data.reservationTime }}';
+</script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/user/confirm.js') }}"></script>
 {% endblock %}

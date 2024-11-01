@@ -7,7 +7,37 @@
 {% endblock %}
 
 {% block content %}
-    <h1>注文完了のページです</h1>
+    <body>
+        <div class="subheader">
+            <h3>注文完了</h3>
+        </div>
+
+        <main>
+            <div class="container">
+                <div class="kann">
+                    <h1>~注文が完了しました!!~<h1>
+                </div>
+                <div class="orderNickname">
+                    <span class="small">お客様の呼び出しニックネーム:</span>
+                    <div class="nickname">
+                        <span class="large"> {{ nickname }} </span>様
+                    </div>
+                </div>
+                <div>
+                    このニックネームが呼ばれたら受け取りに来てください
+                </div>
+                <div class="warning">
+                    ※呼び出しニックネームを忘れてしまった場合は、履歴ページより
+                    呼び出しニックネームを確認することができます。
+                </div>
+                <div class="pageButton" id="goToTop" onclick="window.location.href = '/top';">
+                    <span>Topに戻る</span>
+                </div>
+            </div>
+        </main>        
+    </body>
+
+
 {% endblock %}
 
 {% block javascript %}
