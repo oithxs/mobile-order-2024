@@ -12,16 +12,15 @@
 <body>
     <!-- ヘッダー -->
     <header>
-        ヘッダーです
+        <img decoding="async" class="header-logoImg" src="{{ url_for('static', filename='picture/HxS_logo_W.svg') }}" width="100">
+        <h1 class="title">フランクフルト<br>モバイルオーダー</h1>
     </header>
 
     <!-- メインコンテンツ -->
     {% block content %}{% endblock  %}
     
     <!-- フッター -->
-    <footer>
-        フッターです
-    </footer>
+    <!-- <footer>フッターです</footer> -->
 
     <!-- javascript -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/layout.js') }}"></script>

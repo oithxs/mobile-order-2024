@@ -1,0 +1,14 @@
+body {
+    margin: 0px;
+    font-family: system-ui;
+}
+
+header {
+    display: flex;
+    height: 100px;
+    width: 100%;
+    align-items: center;
+    top: 0;
+    background-color: #00A1E9;
+    color: #f8f8f8;
+}
