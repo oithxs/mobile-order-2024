@@ -180,6 +180,12 @@ input[type="radio"]:checked::before {
     box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
 }
 
+.noticeForReserve{
+    margin-left: 10px;
+    font-size: small;
+    /* background-color: #000000; */
+}
+
 .footerMenu{
     position: fixed;
     bottom: 0;
