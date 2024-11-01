@@ -36,6 +36,11 @@ CREATE TABLE `reservation` (
   `reservationTime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `store_status` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `is_open` BOOLEAN NOT NULL DEFAULT TRUE , PRIMARY KEY (`id`)
+)ENGINE = InnoDB;
+
 --
 -- ダンプしたテーブルのインデックス
 --

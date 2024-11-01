@@ -48,6 +48,10 @@ class Received(db.Model):
     name = db.Column(db.Text())
     number = db.Column(db.Integer)
 
+class StoreStatus(db.Model):
+    __tablename__ = "store_status"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    is_open = db.Column(db.Boolean, default=False)  # 初期状態は営業中
 
 # ---------------------------------------------------------------------------
 # adminの削除処理
@@ -99,6 +103,10 @@ def addReceived(name: str, number: int):
     new_received = Received(name=name, number=number)
     db.session.add(new_received)
     db.session.commit()
+
+def is_store_open():
+    store_status = StoreStatus.query.first()
+    return store_status.is_open
 
 
 """ここはデータベースに何を追加するプログラム"""
@@ -217,11 +225,14 @@ def top_user():
 # お客さんが注文するページ
 @app.route("/order", methods=["GET"])
 def order():
-    # ニックネームをランダムで取り出す(import randomの記述お願いします)
-    nicknameList = Nickname.query.all()
-    nicknameList = [name for name in nicknameList if name.status==True]
-    nickname = nicknameList[random.randint(0,len(nicknameList)-1)]
-    return render_template("user/order.html", nickname=nickname)
+    if(not is_store_open()):
+        return render_template("/user/error.html")
+    else:
+        # ニックネームをランダムで取り出す(import randomの記述お願いします)
+        nicknameList = Nickname.query.all()
+        nicknameList = [name for name in nicknameList if name.status==True]
+        nickname = nicknameList[random.randint(0,len(nicknameList)-1)]
+        return render_template("user/order.html", nickname=nickname)
 
 
 # 注文確認のページ
@@ -314,6 +325,20 @@ def edit(id):
             return "<h1>Not Found</h1><p>メソッド違い</p>"
     except:
         return redirect(url_for("view",message="EditFailed",type="error"))
+
+@app.route("/admin/open", methods=["GET"])
+@login_required
+def open_store_route():
+    try:
+        store_status = StoreStatus.query.first()
+        store_status.is_open = not store_status.is_open
+        db.session.commit()
+        if store_status.is_open:
+            return redirect(url_for("view",message="OPEN" ,type="message"))
+        else:
+            return redirect(url_for("view",message="CLOSE",type="message"))
+    except:
+        return redirect(url_for("view",message="ERROR" ,type="error"))
 
 
 
