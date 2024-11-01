@@ -25,37 +25,41 @@
                 </div>
                 <div class="topping">
                     <h3>トッピング</h3>
-                    <div class="toggleButton">
+                    <div class="inputContents">
                         <label for="ketchup">ケチャップ</label>
-                        <label for="ketchup">
-                            <input type="radio" name="ketchup" value="true" checked>
-                            あり
-                        </label>
-                        <label for="ketchup">
-                            <input type="radio" name="ketchup" value="false">
-                            なし
-                        </label>
+                        <div class="toggleButton">
+                            <label for="ketchup" class="label">
+                                <input type="radio" name="ketchup" value="true" checked>
+                                あり
+                            </label>
+                            <label for="ketchup" class="label">
+                                <input type="radio" name="ketchup" value="false">
+                                なし
+                            </label>
+                        </div>
                     </div>
-                    <div class="toggleButton">
+                    <div class="inputContents">
                         <label for="mustard">マスタード</label>
-                        <label for="mustard">
-                            <input type="radio" name="mustard" value="true" checked>
-                            あり
-                        </label>
-                        <label for="mustard">
-                            <input type="radio" name="mustard" value="false">
-                            なし
-                        </label>
+                        <div class="toggleButton">
+                            <label for="mustard" class="label">
+                                <input type="radio" name="mustard" value="true" checked>
+                                あり
+                            </label>
+                            <label for="mustard" class="label">
+                                <input type="radio" name="mustard" value="false">
+                                なし
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="reservationTime">
                     <h3>受け取り時間</h3>
                     <div class="toggleButton">
-                        <label for="wantToReserve">
+                        <label for="wantToReserve" class="label">
                             <input type="radio" id="wantToReserve0" name="wantToReserve" value="false" onclick="changeDisabled()" checked>
                             即時
                         </label>
-                        <label for="wantToReserve">
+                        <label for="wantToReserve" class="label">
                             <input type="radio" id="wantToReserve1" name="wantToReserve" value="true" onclick="changeDisabled()">
                             時間指定
                         </label>
@@ -72,13 +76,17 @@
             </div>
             <div class="footerMenu">
                 <div class="footerContents">
-                    <a href="/top">Top</a>
-                    <div class="resultMoney">
-                        <span>合計</span>
-                        <span id="resultMoney">150</span>
-                        <span>円</span>
+                    <div class="pageButton">
+                        <a href="/top">Top</a>
                     </div>
-                    <button type="submit">注文確認へ</button>
+                    <div class="resultMoney">
+                        <span>￥</span>
+                        <span id="resultMoney" class="large">200</span>
+                    </div>
+                    <div class="pageButton nextButton">
+                        <a id="goToConfirm">注文確認へ</a>
+                    </div>
+                    <!-- <button type="submit">注文確認へ</button> -->
                 </div>
                 <!-- <button type="button" id="backToTop">Top</button> -->
             </div>
