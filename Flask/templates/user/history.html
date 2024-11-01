@@ -15,11 +15,11 @@
     
     <div class="subheader">
       <h3>注文履歴</h3>
-      <!-- この矢印ボタンで戻れるようにする -->
-      <svg class="return" version="1.1" height="40" width="40" viewBox="0 0 40 40" onclick="window.location.href = '/top';">
-        <path class="line" d="M 10,20 L 20,10" />
-        <path class="line" d="M 10,20 L 20,30" />
-      </svg>
+        <svg class="return" version="1.1" height="40" width="120" viewBox="0 0 120 40" onclick="window.location.href = '/top';">
+          <line x1="10" y1="20" x2="20" y2="10" stroke="black"/>
+          <line x1="10" y1="20" x2="20" y2="30" stroke="black"/>
+          <text stroke-width="1" x="30" y="25">トップに戻る</text>
+        </svg>
     </div>
 
     <main>
@@ -58,43 +58,6 @@
           <div class="number"><span>{{data.number}}</span>本</div>
         </li>
         {% endfor %}
-        
-        <!-- <li class="card-container" style="--white: true;">
-          <div class="history-card">
-            <div class="nickname">かばやき</div>
-            <div class="time">13:17</div>
-            <div class="source">
-              <div class="ketchap">ケチャップ: <span>なし</span></div>
-              <div class="mustard">マスタード: <span>なし</span></div>
-            </div>
-          <div class="number"><span>5</span>本</div>
-          <div class="status2" id="makeImg">受け取り完了</div>
-        </li> -->
-
-        <!-- <li class="card-container" style="--white: true;">
-          <div class="history-card">
-            <div class="nickname">大阪太郎</div>
-            <div class="time">12:35</div>
-            <div class="source">
-              <div class="ketchap">ケチャップ: <span>あり</span></div>
-              <div class="mustard">マスタード: <span>あり</span></div>
-            </div>
-          <div class="number"><span>1</span>本</div>
-          <div class="status2" id="makeImg">受け取り完了</div>
-        </li>
-
-        <li class="card-container" style="--white: true;">
-          <div class="history-card">
-            <div class="nickname">わさびのりこ</div>
-            <div class="time">11:30</div>
-            <div class="source">
-              <div class="ketchap">ケチャップ: <span>あり</span></div>
-              <div class="mustard">マスタード: <span>なし</span></div>
-            </div>
-          <div class="number"><span>3</span>本</div>
-          <div class="status2" id="makeImg">受け取り完了</div>
-        </li> -->
-
       </ul>
 
       <button id="deleteAllHistory" class="deleteButton" type="button">履歴を削除</button>

@@ -1,5 +1,4 @@
 window.onload = function() {
-
     const dialog = document.querySelector('dialog');
     document.getElementById('deleteAllHistory').addEventListener('click', function() {
         dialog.showModal();
