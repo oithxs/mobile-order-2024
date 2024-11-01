@@ -7,11 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <form action="/processing_order" id="addToLocalStorage" method="POST">
-        <input type="hidden" id="isNicknameRegistered" name="isNicknameRegistered" value="">
-        <input type="hidden" id="nickname" name="nickname" value="">
-    </form>
-    <p>Processing...</p>
+    <main>
+        <form action="/processing_order" id="addToLocalStorage" method="POST">
+            <input type="hidden" id="isNicknameRegistered" name="isNicknameRegistered" value="">
+            <input type="hidden" id="nickname" name="nickname" value="">
+        </form>
+        <p>Processing...</p>
+    </main>
 {% endblock %}
 
 {% block javascript %}
