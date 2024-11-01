@@ -1,0 +1,65 @@
+@charset "UTF-8";
+header {
+    background-color:#f8eb65;
+    text-align: center;
+    color: black;
+}
+main{
+    background-image:url("../user/25659934.jpg");
+    background-repeat: no-repeat;
+    background-size:cover ;
+}
+h1 {
+    font-family: "游ゴシック体","Yu Gothic",YuGothic,sans-serif;
+    font-weight: bold;
+    
+}
+.zennbu {
+    margin: 0px 60px 60px 60px;
+}
+.goukei {
+    text-align: center;
+}
+.hyou1 {
+   background-color: #f67690;
+   border-width: thick;
+   border-color: black;
+   border-style: dashed;
+   margin: auto;
+}
+.a2024 {
+    text-align: center;
+}
+.tyuumonb {
+    text-align: center;
+}
+.kotira {
+    background-color: #99cc65; 
+    text-align: center;
+    margin-left: 310px;
+    margin-right: 310px;
+    padding: 1px;
+    text-align: center;
+    padding-top: 10px;
+
+    border-width: thick;
+    border-style: ridge;
+}
+.button1{
+    border-width: thick;
+    border-color: black;
+    border-style: double;
+    margin:0 0 0 600px;
+}
+.button2{
+    border-width: thick;
+    border-color: black;
+    border-style: double;
+    margin: 0 0 0 0px;
+}
+.button3{
+    border-width: thick;
+    border-color: black;
+    border-style: double;
+
+}

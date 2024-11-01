@@ -7,7 +7,56 @@
 {% endblock %}
 
 {% block content %}
-    <h1>お客さんが注文するページです</h1>
+    <body>
+        <form action="/confirm" id="orderForm" method="POST">
+            <!-- 送られてきたデータを注文確認ページに送る -->
+            <input type="hidden" name="nickname" value={{ order_data.nickname }}>
+            <input type="hidden" name="isOrderLeft" value={{ order_data.isOrderLeft }}>
+
+            <h1>注文</h1>
+            <label for="frankfurt">フランクフルト ￥150</label>
+            <input type="number" value="1" min="1" max="10" name="count" id="count">
+            <h1>トッピング</h1>
+            <div name="toggleButton">
+                <label for="ketchup">ケチャップ</label>
+                <label for="ketchup">
+                    <input type="radio" name="ketchup" value="true" checked>
+                    あり
+                </label>
+                <label for="ketchup">
+                    <input type="radio" name="ketchup" value="false">
+                    なし
+                </label>
+            </div>
+            <div name="toggleButton">
+                <label for="mustard">マスタード</label>
+                <label for="mustard">
+                    <input type="radio" name="mustard" value="true" checked>
+                    あり
+                </label>
+                <label for="mustard">
+                    <input type="radio" name="mustard" value="false">
+                    なし
+                </label>
+            </div>
+            <h1>予約</h1>
+            <div>
+                <label for="reservationTime">予約時刻</label>
+                <input type="time" id="reservationTime" name="reservationTime" value="">
+            </div>
+            <div>
+                <button type="button">Topページに戻る</button>
+            </div>
+
+            <div>
+                <span>合計</span>
+                <span id="resultMoney">150</span>
+                <span>円</span>
+                <button type="submit">注文確認画面へ</button>
+            </div>
+        </form>
+    </body>
+    
 {% endblock %}
 
 {% block javascript %}
