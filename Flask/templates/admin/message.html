@@ -8,6 +8,11 @@
 
 {% block content %}
     <h1>システムメッセージのページです</h1>
+    <form action="/test" method="post">
+        <input type="text" name="txt">
+        <input type="checkbox" name="check">
+        <input type="submit">
+    </form>
 {% endblock %}
 
 {% block javascript %}

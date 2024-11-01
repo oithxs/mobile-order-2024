@@ -92,7 +92,7 @@ def update_nickname_status1(session, id: int, new_status: bool):
 def update_nickname_status2(session, nickName: str, new_status: bool):
     nickname_record = session.query.all()
     for oneNickName in nickname_record:
-        if oneNickName.name == nickName:
+        if oneNickName.name == nickName or '*'+oneNickName.name == nickName:
             update_nickname_status1(session, oneNickName.id, new_status)
             return True
     print("Nickname not found")
@@ -155,7 +155,7 @@ def update_reservation_by_id(
         if ketchup is not None:
             reservation.ketchup = ketchup
         if mustard is not None:
-            reservation.ard = mustard
+            reservation.mustard = mustard
         if now_time is not None:
             reservation.time = now_time
 
@@ -280,7 +280,7 @@ def view():
         reservations = get_reservations()
         return render_template("/admin/top.html", reservations=reservations)
     except:
-        return render_template("/admin/message.html", message="view failed")
+        return render_template("/admin/message.html", message="DB Failed", type="error")
 
 
 @app.route("/admin/delete/<int:id>")
@@ -288,12 +288,11 @@ def view():
 def delete(id):
     try:
         # データ削除関数 or メソッド
-        # 引数 id
         name, number, ketchup, mustard, reservationTime = getOrderHistory(id)
-        destroy(id)
         # これはたぶんいるけど T F のどちらにするべき
-        update_nickname_status2(Nickname, name, new_status=True)
-
+        if not update_nickname_status2(Nickname, name, new_status=True):
+            raise "status not change"
+        destroy(id)
         addReceived(name,int(number))
         return redirect(url_for("view",message="DeleteSuccess",type="message"))
     except:
@@ -306,25 +305,28 @@ def delete(id):
 def edit(id):
     try:
         # 全部のデータが来る想定、
-        if request.method == "POST":
-            form_data = request.form.to_dict()
+        form_data = request.form.to_dict()
+        form_data["ketchup"] = True if "ketchup" in form_data else False
+        form_data["mustard"] = True if "mustard" in form_data else False
+        update_reservation_by_id(
+            id,
+            str(form_data["name"]),
+            int(form_data["number"]),
+            bool(form_data["ketchup"]),
+            bool(form_data["mustard"]),
+            dt.strptime(form_data["reservationTime"], "%Y-%m-%d %H:%M:%S"),
+        )
 
-            update_reservation_by_id(
-                id,
-                str(form_data["name"]),
-                int(form_data["number"]),
-                bool(form_data["ketchup"]),
-                bool(form_data["mustard"]),
-                dt.strptime(form_data["reservationTime"], "%Y-%m-%d %H:%M:%S"),
-            )
-
-            return redirect(url_for("view",message="EditSuccess",type="message"))
-
-
-        else:
-            return "<h1>Not Found</h1><p>メソッド違い</p>"
+        return redirect(url_for("view",message="EditSuccess",type="message"))
     except:
         return redirect(url_for("view",message="EditFailed",type="error"))
+
+@app.route("/test", methods=["POST"])
+def test():
+    form_data = request.form.to_dict()
+    form_data["check"] = True if "check" in form_data else False
+    return form_data
+    # return render_template("/admin/message.html", message=form_data)
 
 @app.route("/admin/open", methods=["GET"])
 @login_required
@@ -342,10 +344,9 @@ def open_store_route():
 
 
 
-# @app.route('/admin/system/message')
-# @login_required
-# def message():
-#     return render_template("/admin/message.html")
+@app.route('/admin/system/message')
+def message():
+    return render_template("/admin/message.html")
 
 
 @app.route("/admin/login", methods=["GET", "POST"])
