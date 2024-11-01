@@ -148,6 +148,7 @@ input[type="radio"]:checked::before {
     border-top: solid 1px;
     border-top-color: #9a9a9a;
     background-color: white;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
 }
 
 .footerContents{
@@ -157,4 +158,30 @@ input[type="radio"]:checked::before {
     justify-content: space-between;
     padding-left: 20px;
     padding-right: 20px;
+    font-weight: bold;
+}
+
+dialog[open]{
+    border: none;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+}
+
+dialog::backdrop {
+    background: rgba(0 0 0 / 32%);
+}
+
+dialog button {
+    align-self: flex-end;
+    background-color: #c6c6c6;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.5em 1em;
 }
