@@ -118,9 +118,3 @@ def admin():
 def delete():
     name = request.form['ニックネーム']
     return f"Delete: {name}"
-
-#レイアウト確認ページ
-@app.route('/layout')
-def layout():
-    return render_template("/layout_view.html")
-    
