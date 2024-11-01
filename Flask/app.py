@@ -6,6 +6,7 @@ import sys
 from datetime import datetime as dt
 from datetime import timedelta
 import random
+import json
 
 # envファイルを読み込む
 load_dotenv()
@@ -263,7 +264,7 @@ def order():
 
 
 # 注文確認のページ
-@app.route("/confirm", methods=["GET"])
+@app.route("/confirm", methods=["POST"])
 def confirm():
     return render_template("user/confirm.html",order_data=request.form)
 
@@ -271,7 +272,7 @@ def confirm():
 @app.route('/processing_order',methods=['POST'])
 def processing_order():
     if(request.form.get('isNicknameRegistered') == "true"):
-        return redirect(url_for('result', nickname = request.form['nickname']))
+        return redirect(url_for('result', nickname=request.form['nickname']))
     else:
         # ニックネームをランダムで取り出す(import randomの記述お願いします)
         nicknameList = Nickname.query.all()
@@ -291,9 +292,10 @@ def processing_order():
         if order_data['mustard'] == 'true':
             mustard = True
         if order_data['reservationTime'] != 'none':
-            reservationTime = dt.strptime(order_data['reservationTime'], "%H:%M")
+            today = datetime.today()
+            reservationTime = dt.strptime(today.strftime('%Y-%m-%d')+" "+order_data['reservationTime'], "%Y-%m-%d %H:%M")
 
-        add_reservation(nickName.name, int(order_data['count']), ketchup, mustard, reservationTime)
+        add_reservation(nickname.name, int(order_data['count']), ketchup, mustard, reservationTime)
 
         return render_template("/user/processing_order.html",nickname = nickname)
 
@@ -317,7 +319,7 @@ def history():
         order_DB = Reservation.query.all()
         for nickname in nicknames:
             for order in order_DB:
-                if nickname in order.values():
+                if nickname == order.name or '*'+nickname == order.name:
                     history_data.append(order) # データベースからニックネームをキーとして履歴データを取る
         return render_template("/user/history.html", history_data = history_data)
 
