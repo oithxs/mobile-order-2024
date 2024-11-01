@@ -56,6 +56,7 @@ def processing_order():
 
         #order_dataの加工
         order_data['nickname'] = nickname
+        order_data['status'] = "Receptable"
         order_data['count'] = int(order_data['count'])
         if order_data['ketchup'] == 'true':
             order_data['ketchup'] = True
@@ -96,7 +97,7 @@ def history():
                 if nickname in order.values():
                     history_data.append(order) # データベースからニックネームをキーとして履歴データを取る
 
-        return render_template("/user/sgrid.html", history_data = history_data)
+        return render_template("/user/history.html", history_data = history_data)
 
 #エラーページ
 @app.route('/error')
