@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/sgrid.css') }}" />
+  </head>
+  <body>
+    {% if history_data %}
+      {% for data in history_data %}
+      <div class="wrapper">
+        <div class="f_number">個数 {{ data['count'] }}</div>
+        <div class="nickname">Nickname {{ data['nickname'] }}</div>
+        <div class="time">予約時刻 {{ data['reservationTime'] }}</div>
+        {% if data['ketchup'] == True %}
+        <div class="ketchup">ケチャップ あり</div>
+        {% else %}
+        <div class="ketchup">ケチャップ なし</div>
+        {% endif %}
+        {% if data['mustard'] == True %}
+        <div class="mustard">マスタード あり</div>
+        {% else %}
+        <div class="mustard">マスタード なし</div>
+        {% endif %}
+        <div class="status">注文状況</div>
+      </div>
+      {% endfor %}
+      <button id="deleteAllHistory" type="button">履歴を削除</button>
+      <a href="/top">topに戻る</a>
+
+      <dialog>
+          <p>全ての履歴を削除します。よろしいですか？</p>
+          <form action="/history" id="redirectHistoryPage" method="GET">
+            <button id="yes", type="button">はい</button>
+            <button id="no", type="button">いいえ</button>
+          </form>
+      </dialog>
+    {% else %}
+    <h1>注文履歴はありません</h1>
+    <a href="/top">topに戻る</a>
+    {% endif %}
+  </body>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/user/sgrid.js') }}"></script>
+</html>

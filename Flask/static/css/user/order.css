@@ -1,0 +1,187 @@
+.container{
+    min-height: 853px;
+    width: 100%;
+    max-width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+    cursor: none;
+    font-size: 14px;
+}
+
+.pageButton{
+    width: 100px;
+    height: 40px;
+    background-color: #c6c6c6;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nextButton{
+    background-color: #eda668;
+}
+
+.large{
+    font-size: 32px;
+}
+
+.inputContents{
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.spinButton{
+    display: flex;
+    align-items: center;
+}
+
+input[name="count"]{
+    text-align: center;
+    width: 2em;
+    max-width: 100%;
+    border: none;
+    outline: none;
+}
+
+.spin{
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    /* cursor: pointer; */
+    outline: none;
+    font-size: 24px;
+}
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid #cccccc;
+    border-radius: 20%;
+    outline: none;
+    /* cursor: pointer; */
+    margin-right: 5px;
+    position: relative;
+    padding: 0;
+}
+
+input[type="radio"]:checked {
+    border-color: #eda668;
+}
+
+input[type="radio"]:checked::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background: #eda668;
+    border-radius: 20%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.frankfurt{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.topping{
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.reservationTime{
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.footerMenu{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: solid 1px;
+    border-top-color: #9a9a9a;
+    background-color: white;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+}
+
+.footerContents{
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+dialog[open]{
+    border: none;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+}
+
+dialog::backdrop {
+    background: rgba(0 0 0 / 32%);
+}
+
+dialog button {
+    align-self: flex-end;
+    background-color: #c6c6c6;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.5em 1em;
+}

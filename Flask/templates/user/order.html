@@ -9,52 +9,96 @@
 {% block content %}
     <body>
         <form action="/confirm" id="orderForm" method="POST">
-            <!-- 送られてきたデータを注文確認ページに送る -->
-            <input type="hidden" name="nickname" value={{ order_data.nickname }}>
-            <input type="hidden" name="isOrderLeft" value={{ order_data.isOrderLeft }}>
-
-            <h1>注文</h1>
-            <label for="frankfurt">フランクフルト ￥150</label>
-            <input type="number" value="1" min="1" max="10" name="count" id="count">
-            <h1>トッピング</h1>
-            <div name="toggleButton">
-                <label for="ketchup">ケチャップ</label>
-                <label for="ketchup">
-                    <input type="radio" name="ketchup" value="true" checked>
-                    あり
-                </label>
-                <label for="ketchup">
-                    <input type="radio" name="ketchup" value="false">
-                    なし
-                </label>
+            <div class="container">
+                <div class="frankfurt">
+                    <h3>フランクフルト</h3>
+                    <div class="inputContents">
+                        <label for="count">￥ <span class="large">200</span></label>
+                        <div class="spinButton">
+                            <button type="button" id="decrement" class="spin">－</button>
+                            <!-- <div class="minus">－</div> -->
+                            <input type="number" class="large" value="1" min="1" max="10" name="count" id="count" readonly>
+                            <!-- <div class="plus">＋</div> -->
+                            <button type="button" id="increment" class="spin">＋</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="topping">
+                    <h3>トッピング</h3>
+                    <div class="inputContents">
+                        <label for="ketchup">ケチャップ</label>
+                        <div class="toggleButton">
+                            <label for="ketchup" class="label">
+                                <input type="radio" name="ketchup" value="true" checked>
+                                あり
+                            </label>
+                            <label for="ketchup" class="label">
+                                <input type="radio" name="ketchup" value="false">
+                                なし
+                            </label>
+                        </div>
+                    </div>
+                    <div class="inputContents">
+                        <label for="mustard">マスタード</label>
+                        <div class="toggleButton">
+                            <label for="mustard" class="label">
+                                <input type="radio" name="mustard" value="true" checked>
+                                あり
+                            </label>
+                            <label for="mustard" class="label">
+                                <input type="radio" name="mustard" value="false">
+                                なし
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="reservationTime">
+                    <h3>受け取り時間</h3>
+                    <div class="toggleButton">
+                        <label for="wantToReserve" class="label">
+                            <input type="radio" id="wantToReserve0" name="wantToReserve" value="false" onclick="changeDisabled()" checked>
+                            即時
+                        </label>
+                        <label for="wantToReserve" class="label">
+                            <input type="radio" id="wantToReserve1" name="wantToReserve" value="true" onclick="changeDisabled()">
+                            時間指定
+                        </label>
+                    </div>
+                    <!-- <div class="setReservationTime"> -->
+                    <!-- <label for="reservationTime"></label> -->
+                    <input type="hidden" id="reservationTime0" name="reservationTime" value="none">
+                    <input type="time" id="reservationTime1" name="reservationTime" value="" disabled="disabled" required>
+                    <p>
+                        ※予約可能時刻は、現在時刻より15分後からの時刻です。
+                    </p>
+                    <!-- </div> -->
+                </div>
             </div>
-            <div name="toggleButton">
-                <label for="mustard">マスタード</label>
-                <label for="mustard">
-                    <input type="radio" name="mustard" value="true" checked>
-                    あり
-                </label>
-                <label for="mustard">
-                    <input type="radio" name="mustard" value="false">
-                    なし
-                </label>
-            </div>
-            <h1>予約</h1>
-            <div>
-                <label for="reservationTime">予約時刻</label>
-                <input type="time" id="reservationTime" name="reservationTime" value="">
-            </div>
-            <div>
-                <button type="button">Topページに戻る</button>
-            </div>
-
-            <div>
-                <span>合計</span>
-                <span id="resultMoney">150</span>
-                <span>円</span>
-                <button type="submit">注文確認画面へ</button>
+            <div class="footerMenu">
+                <div class="footerContents">
+                    <div class="pageButton">
+                        <a href="/top">Top</a>
+                    </div>
+                    <div class="resultMoney">
+                        <span>￥</span>
+                        <span id="resultMoney" class="large">200</span>
+                    </div>
+                    <div class="pageButton nextButton">
+                        <a id="goToConfirm">注文確認</a>
+                    </div>
+                    <!-- <button type="submit">注文確認へ</button> -->
+                </div>
+                <!-- <button type="button" id="backToTop">Top</button> -->
             </div>
         </form>
+
+        <dialog>
+            <div>
+                <span id="correctTime"></span>
+                以降の時刻を選択して下さい。
+            </div>
+            <button type="button" id="yes">閉じる</button>
+        </dialog>
     </body>
     
 {% endblock %}
