@@ -189,6 +189,7 @@ input[type="radio"]:checked::before {
 
 .footerMenu{
     position: fixed;
+    z-index: 1;
     bottom: 0;
     width: 100%;
     /* border-top: solid 1px;
