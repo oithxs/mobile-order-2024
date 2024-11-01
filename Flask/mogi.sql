@@ -1,11 +1,3 @@
---
--- データベース: `mogi.db`
---
-CREATE DATABASE mogi;
--- --------------------------------------------------------
-USE mogi;
-
--- --------------------------------------------------------
 
 --
 -- テーブルの構造 `Nickname`
@@ -43,6 +35,11 @@ CREATE TABLE `reservation` (
   `mustard` tinyint(1) NOT NULL,
   `reservationTime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `store_status` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `is_open` BOOLEAN NOT NULL DEFAULT TRUE , PRIMARY KEY (`id`)
+)ENGINE = InnoDB;
 
 --
 -- ダンプしたテーブルのインデックス

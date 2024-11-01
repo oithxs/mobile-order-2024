@@ -5,3 +5,8 @@ itsdangerous==2.2.0
 Jinja2==3.1.4
 MarkupSafe==3.0.1
 Werkzeug==3.0.4
+Flask-SQLAlchemy
+PyMySQL
+python-dotenv
+cryptography
+SQLAlchemy

@@ -1,0 +1,146 @@
+body {
+    font-family: 'Arial', sans-serif;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+table {
+    width: 90%;
+    margin-left: 10px;
+    margin-right: 50px;
+    border-collapse: collapse;
+    border-radius: 10px; /* 角を丸める */
+    overflow: hidden; /* 角の丸みを保持 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #fffafa;
+    text-align: center;
+    font-size: 150%;
+}
+th {
+    text-align: center; /* ヘッダーを中央揃え */
+    background-color: #4a90e2;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.called {
+    background-color: #ccc;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none; /* デフォルトのスタイルをリセット */
+    width: 24px; /* チェックボックスの幅 */
+    height: 24px; /* チェックボックスの高さ */
+    border: 2px solid #ccc; /* チェックボックスの枠線 */
+    border-radius: 4px; /* 角を少し丸める */
+    outline: none; /* フォーカス時のアウトラインを消す */
+    position: relative; /* チェックマークの位置を相対的にする */
+}
+input[type=checkbox].ketchup {
+    background-color: #ff4d4d; /* ケチャップ用の背景色（赤） */
+    border-color: #ff4d4d;
+}
+input[type=checkbox].mustard {
+    background-color: #ffcc00; /* マスタード用の背景色（黄色） */
+    border-color: #ffcc00;
+}
+input[type=checkbox]:not(:checked) {
+    background-color: #fffafa;
+}
+input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 12px;
+    height: 12px;
+    border: solid white; /* チェックマークの色 */
+    border-width: 0 4px 4px 0; /* チェックマークの形 */
+    transform: rotate(45deg); /* チェックマークを回転 */
+}
+
+input[type="button"],input[type="submit"] {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.delete-button{
+    background-color: #ff4d4d;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+.delete-button:hover {
+    background-color: #e63939;
+}
+.called-button{
+    background-color: #317834;
+    color: #ffffff;
+    transition: background-color 0.3s;
+}
+.called-button:hover {
+    background-color: #49c55a;
+}
+.edit-button{
+    background-color: #016ec8;
+    color: #ffffff;
+    transition: background-color 0.3s;
+}
+.edit-button:hover {
+    background-color: #1b54ab;
+}
+.no-button{
+    background-color: #a3a3a3;
+    color: #ffffff;
+}
+
+.textbox {
+    font-size: 100%;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #0088ff;
+    text-align: center;
+}
+.textbox:focus {
+    outline: none;
+    border-bottom: 4px solid #ff0000;
+}
+input[type="number"].textbox {
+    width: 100px;
+}
+
+#message-window {
+    position: fixed; /* 固定配置で画面の下中央に配置 */
+    left: 50%;
+    bottom: 20px;
+    background-color: #4caf50; /* 背景色を緑に */
+    color: #ffffff;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 1.5em;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* より強い影を追加 */
+    z-index: 1000;
+    transition: transform 0.3s ease, opacity 0.3s ease; /* アニメーションの追加 */
+    transform: translate(-50%, 20px); /* 初期位置を下に設定 */
+    opacity: 0; /* 初期状態で透明に */
+    font-family: 'Roboto', sans-serif; /* 基本フォントをRobotoに */
+}
+#message-window.error {
+    background-color: #db2727;
+}
+#message-window.active {
+    transform: translate(-50%, 0); /* メッセージ表示時の位置 */
+    opacity: 1; /* 表示時に不透明 */
+}
