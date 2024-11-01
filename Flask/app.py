@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import sys
 from datetime import datetime as dt
+from datetime import timedelta
 import random
 
 # envファイルを読み込む
@@ -57,6 +58,10 @@ class StoreStatus(db.Model):
 # adminの削除処理
 def destroy(id):
     message = "Destroy SQLAlchemy"
+    # データ削除
+    reservation = Reservation.query.get(id)
+    db.session.delete(reservation)
+    db.session.commit()
 
 #----------------------------------------------------------------------------
 ## 追加内容
@@ -83,7 +88,7 @@ bakingTime = int(os.environ['BAKINGTIME']) # 焼き時間は分
 
 # 現在の時刻を取得する
 def nowTime():
-    return dt.datetime.now()
+    return dt.now()
 
 # バックアップデータの書き込み
 def backUpWrite(count :int):
@@ -316,8 +321,7 @@ def delete(id):
         # データ削除関数 or メソッド
         name, number, ketchup, mustard, reservationTime = getOrderHistory(id)
         # これはたぶんいるけど T F のどちらにするべき
-        if not update_nickname_status2(Nickname, name, new_status=True):
-            raise "status not change"
+        update_nickname_status2(Nickname, name, new_status=True)
         destroy(id)
         addReceived(name,int(number))
         return redirect(url_for("view",message="DeleteSuccess",type="message"))
@@ -389,6 +393,11 @@ def login():
 
             return redirect("/admin/View")
 
+        else:
+            return render_template("/admin/login.html")
+    else:
+        return render_template("/admin/login.html")
+
 # バックアップデータの読み取り
 def backUpRead():
     with open('backUpNum.txt','r') as backUp:
@@ -410,7 +419,6 @@ bakingNum = backUpRead()
 newTime = nowTime()
 
 # 現在の時刻に焼き始めなければならないフランクフルトの数を取得する関数
-from datetime import timedelta
 from sqlalchemy import func
 def get_frankfurts_to_start_baking():
     current_time = nowTime()
@@ -494,14 +502,15 @@ def reservationlate(id: int):
 #---------------------------------------------------------
 ## 焼き本数通知システム（ルーティング）
 # 焼かなければならない数を確認するページ
-import datetime
 @app.route('/bakingCheck')
+@login_required
 def BakingCheck():
     # 焼かなければならない数を取得
     return render_template("admin/bakingCheck.html")
 
 # 焼かなければならない数をリセットするページ
 @app.route('/bakingCountReset')
+@login_required
 def bakingCountReset():
     global bakingNum
     global newTime
@@ -512,6 +521,7 @@ def bakingCountReset():
 
 # 情報を取得(JSON形式で返却)
 @app.route('/getData')
+@login_required
 def getData():
     global bakingNum
     global newTime
