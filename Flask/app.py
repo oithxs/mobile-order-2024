@@ -218,12 +218,6 @@ def top_user():
 @app.route("/order", methods=["GET"])
 def order():
     # ニックネームをランダムで取り出す(import randomの記述お願いします)
-    # while True:
-    #     nickname = Nickname.query.get(
-    #         random.randint(1, 4)
-    #     )  ##(1,100)はニックネームの数に合わせる
-    #     if nickname.status == True:
-    #         break
     nicknameList = Nickname.query.all()
     nicknameList = [name for name in nicknameList if name.status==True]
     nickname = nicknameList[random.randint(0,len(nicknameList)-1)]
@@ -319,8 +313,6 @@ def edit(id):
         else:
             return "<h1>Not Found</h1><p>メソッド違い</p>"
     except:
-        return redirect(url_for("view", message="edit failed"))
-
         return redirect(url_for("view",message="EditFailed",type="error"))
 
 
