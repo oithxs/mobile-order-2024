@@ -24,21 +24,116 @@ main{
     flex: 1;
     overflow-y: scroll;
     background-color: #f7f7f7;
+    height: 100vh;
 }
 
-table{
-    border:1px #333 solid; /* 枠線をつける */
+/* table{
+    border:1px #333 solid;
+} */
+
+.large{
+    font-size: 32px;
+}
+
+.medium{
+    font-size: 24px;
 }
 
 .container{
-    min-height: 853px;
-    width: 100%;
+    min-height: 400px;
+    width: 90%;
     max-width: 960px;
+    margin-top: 20px;
     margin-right: auto;
     margin-left: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+}
+
+.frankfurt{
+    height: 100px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ffffff;
+    margin: 20px;
+}
+
+.hyou1{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 20px;
+    background-color: #ffffff;
+}
+
+th{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+td{
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+.goukei{
+    margin: 20px;
+    background-color: #ffffff;
+}
+
+.kotira{
+    margin: 20px;
+    background-color: #ffffff;
+}
+
+.tyuumonb{
+    margin-bottom: 40px;
+    background-color: #ffffff;
+}
+
+.pageButton{
+    width: 200px;
+    height: 40px;
+    background-color: #eda668;
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+dialog[open]{
+    border: none;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+}
+
+dialog::backdrop {
+    background: rgba(0 0 0 / 32%);
+}
+
+dialog button {
+    align-self: flex-end;
+    background-color: #c6c6c6;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.5em 1em;
 }
 
 /* header {
