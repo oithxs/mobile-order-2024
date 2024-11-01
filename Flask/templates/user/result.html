@@ -3,26 +3,39 @@
 {% block title %}注文完了{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="../../../Flask/static/css/user/result.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/result.css') }}">
 {% endblock %}
 
 {% block content %}
-    <main><div class="p1"><h1>注文完了ページ</h1></div>
-    <section><div class="kann"><h1>~注文が完了しました!!~<h1></div><div class="xxx"><h1> {{ nickname }} 様<h1></div>注文が完了しました。
-    店頭に行きスタッフにこの画面を見せてください。
+    <body>
+        <div class="subheader">
+            <h3>注文完了</h3>
+        </div>
 
-    <p>
-    </p>
-    <div class="tyuui"><h4>注意!!<h4></div><div class="kesi1">この画面を消してしまうと、お客様のニックネームが分からなくなってしまうので
-    この画面を絶対に消さないでください。</div><p></p>
-    <div class="kesi2">また、もし消してしまった場合近くのスタッフに何なりとお申し付けくださいませ。</div>
-    </section>
-    <p>
-    </p>
-    <div class="button1"><button><h3><a href="/top">topに戻る</a></h3></button>
-    </div>
-    </main>
-
+        <main>
+            <div class="container">
+                <div class="kann">
+                    <h1>~注文が完了しました!!~<h1>
+                </div>
+                <div class="orderNickname">
+                    <span class="small">お客様の呼び出しニックネームは</span>
+                    <div class="nickname">
+                        <span class="large"> {{ nickname }} </span>様
+                    </div>
+                </div>
+                <div>
+                    このニックネームが呼ばれたら受け取りに来てください
+                </div>
+                <div class="warning">
+                    ※呼び出しニックネームを忘れてしまった場合は、履歴ページより
+                    呼び出しニックネームを確認することができます。
+                </div>
+                <div class="pageButton" id="goToTop" onclick="window.location.href = '/top';">
+                    <span>Topに戻る</span>
+                </div>
+            </div>
+        </main>        
+    </body>
 
 
 {% endblock %}
