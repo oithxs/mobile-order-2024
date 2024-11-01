@@ -13,19 +13,32 @@ window.onload = function () {
         return `${year}/${month}/${day}`;
     }
 
-    // 予約時刻が現在時刻+数分より前の時間の場合はじく
-    const dialog = document.querySelector('dialog');
-
-    document.getElementById('confirmOrder').addEventListener("submit", function (e){
+    function isTimeValidate() {
         const canReservationDate = new Date();
         const reservationDate = new Date(formatDate(canReservationDate) + " " + reservationTime);
         
         if (reservationDate < canReservationDate.setMinutes(canReservationDate.getMinutes() + 15)) {
             document.getElementById('correctTime').textContent = formatTime(canReservationDate);
-            dialog.showModal();
-            e.preventDefault();
+            return false;
         }
-    });
+        else {
+            return true;
+        }
+    }
+
+    // // 予約時刻が現在時刻+数分より前の時間の場合はじく
+    const dialog = document.querySelector('dialog');
+
+    // document.getElementById('confirmOrder').addEventListener("submit", function (e){
+    //     const canReservationDate = new Date();
+    //     const reservationDate = new Date(formatDate(canReservationDate) + " " + reservationTime);
+        
+    //     if (reservationDate < canReservationDate.setMinutes(canReservationDate.getMinutes() + 15)) {
+    //         document.getElementById('correctTime').textContent = formatTime(canReservationDate);
+    //         dialog.showModal();
+    //         e.preventDefault();
+    //     }
+    // });
 
     // 最短の予約可能時刻に変更して送信
     document.getElementById('yes').addEventListener("click", function() {
@@ -34,6 +47,16 @@ window.onload = function () {
         document.getElementById('reservationTime').value = formatTime(reservationDate);
         document.getElementById('confirmOrder').submit();
         dialog.close();
+    });
+
+    // 注文確認へフォームを送信する処理
+    document.getElementById('goToResult').addEventListener('click', function() {
+        if (isTimeValidate()) {
+            document.getElementById('confirmOrder').submit();
+        }
+        else {
+            dialog.showModal();
+        }
     });
 
     // ダイアログを閉じる

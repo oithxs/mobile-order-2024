@@ -15,21 +15,16 @@
     
     <div class="subheader">
       <h3>注文履歴</h3>
-
-      <a href="/top">
-      <div class="return">
-        <svg version="1.1" height="40" width="120" viewBox="0 0 120 40">
+        <svg class="return" version="1.1" height="40" width="120" viewBox="0 0 120 40" onclick="window.location.href = '/top';">
           <line x1="10" y1="20" x2="20" y2="10" stroke="black"/>
           <line x1="10" y1="20" x2="20" y2="30" stroke="black"/>
           <text stroke-width="1" x="30" y="25">トップに戻る</text>
         </svg>
-      </div>
-      </a>
     </div>
 
     <main>
+      {% if history_data %}
       <ul class="card-list">
-        {% if history_data %}
           {% for data in history_data|reverse %}
             <li class="card-container" style="--white: true;">
               <div class="history-card">
@@ -61,20 +56,22 @@
               {% endif %}
             </li>
           {% endfor %}
-
-          <button id="deleteAllHistory" type="button">履歴を削除</button>
-
-          <dialog>
-            <p>全ての履歴を削除します。よろしいですか？</p>
-            <form action="/history" id="redirectHistoryPage" method="GET">
-              <button id="yes", type="button">はい</button>
-              <button id="no", type="button">いいえ</button>
-            </form>
-          </dialog>
-        {% else %}
-          <h1>注文履歴はありません</h1>
-        {% endif %}
       </ul>
+
+      <button id="deleteAllHistory" class="deleteButton" type="button">履歴を削除</button>
+
+      <dialog>
+          <p>全ての履歴を削除します。よろしいですか？</p>
+          <form action="/history" id="redirectHistoryPage" method="GET">
+            <button id="yes", type="button">はい</button>
+            <button id="no", type="button">いいえ</button>
+          </form>
+      </dialog>
+      {% else %}
+      <div class="noHistory">
+        <span>注文履歴はありません</span>
+      </div>
+      {% endif %}
     </main>
   </div>
 </body>

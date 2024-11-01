@@ -1,4 +1,5 @@
 body {
+    height: 100%;
     margin: 0px;
     font-family: system-ui;
 }
@@ -11,4 +12,12 @@ header {
     top: 0;
     background-color: #00A1E9;
     color: #f8f8f8;
+}
+
+.copyright{
+    text-align: center;
+    background-color: #f7f7f7;
+    color: #3b3b3b;
+    position: sticky;
+    top: 100vh;
 }

@@ -56,6 +56,7 @@ def processing_order():
 
         #order_dataの加工
         order_data['nickname'] = nickname
+        order_data['status'] = "Receptable"
         order_data['count'] = int(order_data['count'])
         if order_data['ketchup'] == 'true':
             order_data['ketchup'] = True
@@ -117,9 +118,3 @@ def admin():
 def delete():
     name = request.form['ニックネーム']
     return f"Delete: {name}"
-
-#レイアウト確認ページ
-@app.route('/layout')
-def layout():
-    return render_template("/layout_view.html")
-    
