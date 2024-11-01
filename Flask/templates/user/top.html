@@ -7,14 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <meta charset="UTF-8">
-    <!-- <h1></h1> --->
-    <div class="appframe">
-        <p>Let's eat Frankfurt!</p>
-        <a href="{{ url_for('order') }}" target="_blank">スマホで注文</a><p></p>
-        <a href="{{ url_for('error') }}" target="_blank">注文状況を確認</a><p></p>
-        <a href="{{ url_for('history') }}" target="_blank">注文履歴</a><p></p>
-    </div>
+  <meta charset="UTF-8">
+  <!-- <h1></h1> --->
+  <main>
+    <div class="navigation">1OOO教室にて<br>フランクフルト販売中!</div>
+    <input type="button" class="link_button" onclick="location.href='order'" value="スマホで注文">
+    <input type="button" class="link_button" onclick="location.href='history'" value="注文履歴">
+  </main>
 {% endblock %}
 
 {% block javascript %}

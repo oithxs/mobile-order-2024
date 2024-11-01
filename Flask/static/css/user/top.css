@@ -1,8 +1,42 @@
 @charset "UTF-8";
 
 body {
-    background: #000022;
+    background: #ffffff;
     margin: 0px;
+}
+
+main {
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.navigation {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.link_button {
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    color: #ffffff;/*文字色*/
+    background: #064583;
+    width: 80%;
+    margin: 10px;
+    border: solid 50px #064583;/*#ffb900;/*線*/
+    border-radius: 30px;/*角の丸み*/
+    /*--水平方向 垂直方向 影のぼかし 色--*/
+	box-shadow: 10px 10px 10px rgba(0,0,0,0.3);  
+	transition: background-color 1s;
+}
+
+.link_button:hover {
+	/*--水平方向 垂直方向 色--*/
+	box-shadow: 0 0 10px rgba(0,0,0,0);
 }
 
 .appframe{
