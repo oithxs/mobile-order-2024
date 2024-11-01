@@ -2,6 +2,7 @@ FROM python:latest
 RUN apt update
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements.txt
+
 ARG UID=1000
 ARG GID=1000
 ARG USERNAME=app

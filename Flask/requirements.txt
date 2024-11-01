@@ -9,3 +9,4 @@ Flask-SQLAlchemy
 PyMySQL
 python-dotenv
 cryptography
+SQLAlchemy

@@ -9,6 +9,7 @@ services:
       - "5000:5000"
     environment:
       MYSQL_HOST: mysql
+      TZ: Asia/Tokyo
     env_file:
       - .env
     volumes:
