@@ -56,6 +56,8 @@ main {
 @container style(--white: true){
   .history-card {
     background: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
   }
 }
 
@@ -94,6 +96,10 @@ main {
   .nickname {
     font-weight: bold;
     font-size: 2rem;
+  }
+
+  .time span {
+    font-weight: bold;
   }
   
   .source {

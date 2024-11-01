@@ -15,23 +15,32 @@
     
     <div class="subheader">
       <h3>注文履歴</h3>
-      <svg class="return" version="1.1" height="40" width="40" viewBox="0 0 40 40">
+      <!-- この矢印ボタンで戻れるようにする -->
+      <svg class="return" version="1.1" height="40" width="40" viewBox="0 0 40 40" onclick="window.location.href = '/top';">
         <path class="line" d="M 10,20 L 20,10" />
         <path class="line" d="M 10,20 L 20,30" />
       </svg>
     </div>
 
     <main>
+      {% if history_data %}
       <ul class="card-list">
-
+        {% for data in history_data %}
         <li class="card-container" style="--white: true;">
           <div class="history-card">
-            <div class="nickname">{{history_data.nickname}}</div>
-            <div class="time">{{history_data.time}}</div>
+            <div class="nickname">{{data.nickname}}</div>
+            <div class="time">
+              予約時間: <!--半角空ける-->
+              {% if data.reservationTime == None %}
+              <span>即時</span>
+              {% else %}
+              <span>{{data.reservationTime}}</span>
+              {% endif %}
+            </div>
             <div class="source">
               <div class="ketchap">
                 ケチャップ: <!--半角空ける-->
-                {% if history_data.ketchup == True %}
+                {% if data.ketchup == True %}
                   <span>あり</span>
                 {% else %}
                   <span>なし</span>
@@ -39,22 +48,23 @@
               </div>
               <div class="mustard">
                 マスタード: <!--半角空ける-->
-                {% if history_data.mustard == True %}
+                {% if data.mustard == True %}
                   <span>あり</span>
                 {% else %}
                   <span>なし</span>
                 {% endif %}
               </div>
             </div>
-          <div class="number"><span>{{history_data.number}}</span>本</div>
-          {% if history_data.status == "Receptable" %}
+          <div class="number"><span>{{data.count}}</span>本</div>
+          {% if data.status == "Receptable" %}
             <div class="status" id="makeImg">受け取り待ち</div>
-          {% elif history_data.status == "Received" %}
+          {% elif data.status == "Received" %}
             <div class="status2" id="makeImg">受け取り完了</div>
           {% endif %}
         </li>
-
-        <li class="card-container" style="--white: true;">
+        {% endfor %}
+        
+        <!-- <li class="card-container" style="--white: true;">
           <div class="history-card">
             <div class="nickname">かばやき</div>
             <div class="time">13:17</div>
@@ -64,9 +74,9 @@
             </div>
           <div class="number"><span>5</span>本</div>
           <div class="status2" id="makeImg">受け取り完了</div>
-        </li>
+        </li> -->
 
-        <li class="card-container" style="--white: true;">
+        <!-- <li class="card-container" style="--white: true;">
           <div class="history-card">
             <div class="nickname">大阪太郎</div>
             <div class="time">12:35</div>
@@ -88,9 +98,13 @@
             </div>
           <div class="number"><span>3</span>本</div>
           <div class="status2" id="makeImg">受け取り完了</div>
-        </li>
+        </li> -->
 
       </ul>
+      {% else %}
+      <h1>注文履歴はありません</h1>
+      <!-- <a href="/top">topに戻る</a> -->
+      {% endif %}
     </main>
   </div>
 </body>
