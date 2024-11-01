@@ -1,15 +1,12 @@
 @charset "UTF-8";
 
-h1{
-    color: #4ea8f9;
-}
-
 body {
-    text-align: center;
     background: #000022;
+    margin: 0px;
 }
 
 .appframe{
+    text-align: center;
     background: #ffffff;
     width: 420px;
     margin: auto;
