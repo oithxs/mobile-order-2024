@@ -131,10 +131,9 @@ def add_reservation(
 adminの一覧画面からの取得
 """
 
-
 def get_reservations():
-    reservations = Reservation.query.all()
-    print(reservations)
+    #reservations = Reservation.query.all()
+    reservations =  Reservation.query.order_by(Reservation.reservationTime).all()
     return reservations
 
 
@@ -157,7 +156,7 @@ def update_reservation_by_id(
         if mustard is not None:
             reservation.mustard = mustard
         if now_time is not None:
-            reservation.time = now_time
+            reservation.reservationTime = now_time
 
         db.session.commit()
 
@@ -314,7 +313,8 @@ def edit(id):
             int(form_data["number"]),
             bool(form_data["ketchup"]),
             bool(form_data["mustard"]),
-            dt.strptime(form_data["reservationTime"], "%Y-%m-%d %H:%M:%S"),
+            # dt.strptime(form_data["reservationTime"], "%Y-%m-%d %H:%M:%S"),
+            form_data["reservationTime"],
         )
 
         return redirect(url_for("view",message="EditSuccess",type="message"))
@@ -325,6 +325,7 @@ def edit(id):
 def test():
     form_data = request.form.to_dict()
     form_data["check"] = True if "check" in form_data else False
+    form_data["time"] = dt.strptime(form_data["reservationTime"], "%Y-%m-%d %H:%M:%S")
     return form_data
     # return render_template("/admin/message.html", message=form_data)
 
