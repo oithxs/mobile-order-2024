@@ -29,10 +29,6 @@ def home():
 def top():
     return render_template("/user/top.html")
 
-@app.route('/sgrid')
-def sgrid():
-    return render_template("/user/sgrid.html")
-
 #お客さんが注文するページ
 @app.route('/order')
 def order():

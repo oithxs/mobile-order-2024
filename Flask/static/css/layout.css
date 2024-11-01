@@ -1,18 +1,14 @@
-*{
-    padding: 0;
-    margin: 0;
+body {
+    margin: 0px;
+    font-family: system-ui;
 }
 
-header{
+header {
     display: flex;
-    justify-content: center;
+    height: 100px;
+    width: 100%;
     align-items: center;
-    height: 90px;
-    background-color: #00a1e9;
-    color: white;
+    top: 0;
+    background-color: #00A1E9;
+    color: #f8f8f8;
 }
-
-/* footer{
-    position: fixed;
-    bottom: 0;
-} */

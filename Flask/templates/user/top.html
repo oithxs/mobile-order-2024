@@ -7,18 +7,13 @@
 {% endblock %}
 
 {% block content %}
+    <meta charset="UTF-8">
     <!-- <h1></h1> --->
     <div class="appframe">
-        <h1>フランクフルト</h1>
-        <h1>モバイルオーダー</h1>
         <p>Let's eat Frankfurt!</p>
-        <!-- a href="./order" target="_blank">スマホで注文</a><p></p -->
-        <a href="{{ url_for('order') }}">スマホで注文</a><p></p>
-        <a href="{{ url_for('error') }}">注文状況を確認</a><p></p>
-        <a href="{{ url_for('history') }}">注文履歴</a><p></p>
-        <a href="{{ url_for('sgrid') }}">css試験用</a><p></p>
-        
-        <!-- <script src="mp_2.js" charset="utf-8"></script> -->
+        <a href="{{ url_for('order') }}" target="_blank">スマホで注文</a><p></p>
+        <a href="{{ url_for('error') }}" target="_blank">注文状況を確認</a><p></p>
+        <a href="{{ url_for('history') }}" target="_blank">注文履歴</a><p></p>
     </div>
 {% endblock %}
 
