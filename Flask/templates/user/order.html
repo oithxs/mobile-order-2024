@@ -7,7 +7,109 @@
 {% endblock %}
 
 {% block content %}
-    <h1>お客さんが注文するページです</h1>
+    <body>
+        <div class="subheader">
+            <h3>注文</h3>
+            <!-- この矢印ボタンで戻れるようにする -->
+            <svg class="return" version="1.1" height="40" width="40" viewBox="0 0 40 40" onclick="window.location.href = '/top';">
+                <path class="line" d="M 10,20 L 20,10" />
+                <path class="line" d="M 10,20 L 20,30" />
+            </svg>
+        </div>
+
+        <main>
+            <form action="/confirm" id="orderForm" method="POST">
+                <div class="container">
+                    <div class="frankfurt">
+                        <h3>フランクフルト</h3>
+                        <div class="inputContents">
+                            <label for="count">￥ <span class="large">200</span></label>
+                            <div class="spinButton">
+                                <button type="button" id="decrement" class="spin">－</button>
+                                <!-- <div class="minus">－</div> -->
+                                <input type="number" class="large" value="1" min="1" max="10" name="count" id="count" readonly>
+                                <!-- <div class="plus">＋</div> -->
+                                <button type="button" id="increment" class="spin">＋</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topping">
+                        <h3>トッピング</h3>
+                        <div class="inputContents">
+                            <label for="ketchup">ケチャップ</label>
+                            <div class="toggleButton">
+                                <label for="ketchup" class="label">
+                                    <input type="radio" name="ketchup" value="true" checked>
+                                    あり
+                                </label>
+                                <label for="ketchup" class="label">
+                                    <input type="radio" name="ketchup" value="false">
+                                    なし
+                                </label>
+                            </div>
+                        </div>
+                        <div class="inputContents">
+                            <label for="mustard">マスタード</label>
+                            <div class="toggleButton">
+                                <label for="mustard" class="label">
+                                    <input type="radio" name="mustard" value="true" checked>
+                                    あり
+                                </label>
+                                <label for="mustard" class="label">
+                                    <input type="radio" name="mustard" value="false">
+                                    なし
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reservationTime">
+                        <h3>受け取り時間</h3>
+                        <div class="toggleButton">
+                            <label for="wantToReserve" class="label">
+                                <input type="radio" id="wantToReserve0" name="wantToReserve" value="false" onclick="changeDisabled()" checked>
+                                即時
+                            </label>
+                            <label for="wantToReserve" class="label">
+                                <input type="radio" id="wantToReserve1" name="wantToReserve" value="true" onclick="changeDisabled()">
+                                時間指定
+                            </label>
+                        </div>
+                        <!-- <div class="setReservationTime"> -->
+                        <!-- <label for="reservationTime"></label> -->
+                        <input type="hidden" id="reservationTime0" name="reservationTime" value="none">
+                        <input type="time" id="reservationTime1" name="reservationTime" value="" disabled="disabled" required>
+                        <p class="noticeForReserve">
+                            ※予約可能時刻は、現在時刻より15分後からの時刻です。
+                        </p>
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <div class="footerMenu">
+                    <div class="footerContents">
+                        <!-- <div class="pageButton" id="backToTop" onclick="window.location.href = '/top';">
+                            <span>Top</span>
+                        </div> -->
+                        <div class="resultMoney">
+                            <span>￥</span>
+                            <span id="resultMoney" class="large">200</span>
+                        </div>
+                        <div class="pageButton nextButton" id="goToConfirm">
+                            <span>注文確認</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <dialog>
+            <div>
+                <span id="correctTime"></span>
+                以降の時刻を選択して下さい。
+            </div>
+            <button type="button" id="yes">閉じる</button>
+        </dialog>
+    </body>
+    
 {% endblock %}
 
 {% block javascript %}

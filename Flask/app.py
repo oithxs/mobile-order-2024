@@ -259,37 +259,67 @@ def order():
     if(not is_store_open()):
         return render_template("/user/error.html")
     else:
-        # ニックネームをランダムで取り出す(import randomの記述お願いします)
-        nicknameList = Nickname.query.all()
-        nicknameList = [name for name in nicknameList if name.status==True]
-        nickname = nicknameList[random.randint(0,len(nicknameList)-1)]
-        return render_template("user/order.html", nickname=nickname)
+        return render_template("user/order.html",)
 
 
 # 注文確認のページ
 @app.route("/confirm", methods=["GET"])
 def confirm():
-    return render_template("user/confirm.html")
+    return render_template("user/confirm.html",order_data=request.form)
 
-
-# 注文完了のページ
-@app.route("/result", methods=["GET", "POST"])
-def result():
-    if request.method == "GET":
-        return render_template("user/result.html")
-    if request.method == "POST":
-        add_reservation(
-            request.form["name"],
-            int(request.form["number"]),
-            bool(request.form["ketchup"]),
-            bool(request.form["mustard"]),
-            dt.strptime(request.form["reservationTime"], "%Y-%m-%d %H:%M:%S"),
-        )
-        nickname = Nickname.query.get(id)
+#注文処理のページ
+@app.route('/processing_order',methods=['POST'])
+def processing_order():
+    if(request.form.get('isNicknameRegistered') == "true"):
+        return redirect(url_for('result', nickname = request.form['nickname']))
+    else:
+        # ニックネームをランダムで取り出す(import randomの記述お願いします)
+        nicknameList = Nickname.query.all()
+        nicknameList = [name for name in nicknameList if name.status==True]
+        nickname = nicknameList[random.randint(0,len(nicknameList)-1)]
         nickname.status = bool(False)
         db.session.commit()
-        return render_template("user/result.html")
 
+        order_data = request.form.to_dict() # formデータを受け取る
+
+        #order_dataの加工
+        ketchup = False
+        mustard = False
+        reservationTime = nowTime()
+        if order_data['ketchup'] == 'true':
+            ketchup = True
+        if order_data['mustard'] == 'true':
+            mustard = True
+        if order_data['reservationTime'] != 'none':
+            reservationTime = dt.strptime(order_data['reservationTime'], "%H:%M")
+
+        add_reservation(nickName.name, int(order_data['count']), ketchup, mustard, reservationTime)
+
+        return render_template("/user/processing_order.html",nickname = nickname)
+
+#注文完了のページ
+@app.route('/result',methods=['GET'])
+def result():
+    nickname = request.args.get('nickname')
+    if nickname == None:
+        nickname = ""
+    return render_template("/user/result.html", nickname = nickname)
+
+#注文履歴のページ
+@app.route('/history',methods=['GET','POST'])
+def history():
+    if request.method == 'GET':
+        return render_template("user/loading.html") # このページでローカルストレージの内容を取り出す
+    else:
+        nicknames = json.loads(request.form.get('nicknames')) # ニックネームの文字列のリスト
+
+        history_data = [] # 履歴データ
+        order_DB = Reservation.query.all()
+        for nickname in nicknames:
+            for order in order_DB:
+                if nickname in order.values():
+                    history_data.append(order) # データベースからニックネームをキーとして履歴データを取る
+        return render_template("/user/history.html", history_data = history_data)
 
 # エラーページ
 @app.route("/error", methods=["GET"])
@@ -298,10 +328,10 @@ def error():
 
 
 # 注文履歴のページ
-@app.route("/history/<int:id>", methods=["GET"])
-def history(id):
-    reservation = Reservation.query.get(id)
-    return render_template("user/history.html", reservation=reservation)
+# @app.route("/history/<int:id>", methods=["GET"])
+# def history(id):
+#     reservation = Reservation.query.get(id)
+#     return render_template("user/history.html", reservation=reservation)
 
 
 @app.route("/admin/View")

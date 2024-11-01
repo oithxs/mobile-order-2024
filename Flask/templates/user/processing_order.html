@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}Processing...{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/processing_order.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <form action="/processing_order" id="addToLocalStorage" method="POST">
+            <input type="hidden" id="isNicknameRegistered" name="isNicknameRegistered" value="">
+            <input type="hidden" id="nickname" name="nickname" value="">
+        </form>
+        <p>Processing...</p>
+    </main>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    const nickname = '{{ nickname }}';
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/user/processing_order.js') }}"></script>
+{% endblock %}

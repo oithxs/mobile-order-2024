@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Loading{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user/loading.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <form action="/history" id="localStorage" method="POST">
+            <input type="hidden" id="nicknames" name="nicknames" value="">
+        </form>
+        <p>Loading...</p>        
+    </main>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/user/loading.js') }}"></script>
+{% endblock %}
