@@ -202,3 +202,39 @@ main {
   text-align: center;
   margin-top: 40px;
 }
+
+.deleteButton{
+  margin-left: 20px;
+  background-color: #c6c6c6;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.5em 1em;
+}
+
+dialog[open]{
+  border: none;
+  margin: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0 0 0 / 16%);
+}
+
+dialog::backdrop {
+  background: rgba(0 0 0 / 32%);
+}
+
+dialog button {
+  align-self: flex-end;
+  background-color: #c6c6c6;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.5em 1em;
+}
