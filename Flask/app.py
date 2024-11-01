@@ -13,10 +13,6 @@ def home():
 def top():
     return render_template("/user/top.html")
 
-@app.route('/sgrid')
-def sgrid():
-    return render_template("/user/sgrid.html")
-
 #お客さんが注文するページ
 @app.route('/order')
 def order():
@@ -36,11 +32,10 @@ def result():
 @app.route('/history',methods=['GET'])
 def history():
     history_data = {
-        "number": 1,
-        "time": "11:30",
         "nickname": "Mr.Frankfurt",
-        "status": "Received",
-        "count": 3,
+        "number": 3,
+        "time": "14:10",
+        "status": "Receptable",
         "ketchup": true,
         "mustard": true
     }
