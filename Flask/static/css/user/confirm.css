@@ -33,6 +33,7 @@ main{
 
 .large{
     font-size: 32px;
+    font-weight: bold;
 }
 
 .medium{
