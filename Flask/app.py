@@ -98,6 +98,8 @@ def backUpWrite(count :int):
     backUp.close()
     return "ok"
 
+# 現在時間における注文数
+nowReservation = 0
 
 # ---------------------------------------------------------------------------
 # /adminと/userの取得処理
@@ -274,6 +276,7 @@ def processing_order():
     if(request.form.get('isNicknameRegistered') == "true"):
         return redirect(url_for('result', nickname=request.form['nickname']))
     else:
+        global nowReservation
         # ニックネームをランダムで取り出す(import randomの記述お願いします)
         nicknameList = Nickname.query.all()
         nicknameList = [name for name in nicknameList if name.status==True]
@@ -294,6 +297,8 @@ def processing_order():
         if order_data['reservationTime'] != 'none':
             today = datetime.today()
             reservationTime = dt.strptime(today.strftime('%Y-%m-%d')+" "+order_data['reservationTime'], "%Y-%m-%d %H:%M")
+        else:
+            nowReservation += int(order_data['count'])
 
         add_reservation(nickname.name, int(order_data['count']), ketchup, mustard, reservationTime)
 
@@ -450,11 +455,6 @@ bakingNum = backUpRead()
 # 更新時刻を取得
 newTime = nowTime()
 
-
-
-# 現在時間における注文数
-nowReservation = 0
-
 # 現在の時刻における注文数を取得する関数
 from sqlalchemy import func
 def getNowReservation():
@@ -462,7 +462,7 @@ def getNowReservation():
 
 
     setHour = current_time.hour
-    setMinute = current_time.minute
+    setMinute = current_time.minute - 1
 
     session = Session(autocommit=False,autoflush=True,bind=engine)
 
@@ -516,10 +516,6 @@ def count():
     # バックアップデータを書き込む
     backUpWrite(bakingNum)
     newTime = nowTime()
-    print(f"焼かなければならない数を更新しました: {bakingNum}本")
-    nowReservation = getNowReservation()
-    print(f"確認時刻{nowTime()}")
-    print(f"今の予約:{nowReservation}")
 
 # 自動更新関数を呼び出すスレッド
 def update():
@@ -584,7 +580,8 @@ def bakingCountReset():
 def getData():
     global bakingNum
     global newTime
-    data = {"count":f"{bakingNum}","time":f"{newTime.strftime('%Y/%m/%d %H:%M:%S')}"}
+    global nowReservation
+    data = {"count":f"{bakingNum}","time":f"{newTime.strftime('%Y/%m/%d %H:%M:%S')}","nowReservation":nowReservation}
     nowReservation = 0
     return jsonify(data)
 
