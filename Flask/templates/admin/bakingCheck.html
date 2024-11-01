@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% block title %}BakingCheck{% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/admin/bakingCheck.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+{% block content %}
+<div class="main">
+    <div class="logo">
+        <p>Baking Check System</p>
+    </div>
+    <div class="mes1">
+        <p>焼き始めなければならない本数</p>
+    </div>
+    <div class="mes2" id="num">
+        <p>本数</p>
+    </div>
+    <div class="d-grid btn">
+        <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">リセット</button>
+    </div>
+    <div class="time" id="time">
+        更新時刻
+    </div>
+</div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">確認</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          本当にリセットしますか？
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success" onclick="location.href='/bakingCountReset'">はい</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">いいえ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+    <script>
+
+        const sound = new Audio("static/sound.mp3");
+                
+
+        async function getData() {
+            const url = "/getData";
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                throw new Error(`レスポンスステータス: ${response.status}`);
+                }
+
+                const json = await response.json();
+                //console.log(json);
+                //console.log(json.time);
+                //console.log(json.count);
+
+                const count = json.count
+                const time = json.time
+
+                document.getElementById('num').innerText = `${count}本`
+                document.getElementById('time').innerText = `更新時刻:${time}`
+
+                if(Number(json.count)>0){
+                    sound.play();
+                }
+
+            } catch (error) {
+                console.error(error.message);
+                //alert(error.message);
+            }
+        }
+
+        getData();
+        setInterval(getData,50000)
+        
+    </script>
+  
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/admin/bakingCheck.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+{% endblock %}

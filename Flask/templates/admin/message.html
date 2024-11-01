@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}システムメッセージ{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/message.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>システムメッセージのページです</h1>
+    <form action="/test" method="post">
+        <input type="text" name="txt">
+        <input type="checkbox" name="check">
+        <input type="text" name="reservationTime">
+        <input type="submit">
+    </form>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin/message.js') }}"></script>
+{% endblock %}

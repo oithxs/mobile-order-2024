@@ -28,7 +28,7 @@
         {% for data in history_data %}
         <li class="card-container" style="--white: true;">
           <div class="history-card">
-            <div class="nickname">{{data.nickname}}</div>
+            <div class="nickname">{{data.name}}</div>
             <div class="time">
               予約時間: <!--半角空ける-->
               {% if data.reservationTime == None %}
@@ -55,12 +55,7 @@
                 {% endif %}
               </div>
             </div>
-          <div class="number"><span>{{data.count}}</span>本</div>
-          {% if data.status == "Receptable" %}
-            <div class="status" id="makeImg">受け取り待ち</div>
-          {% elif data.status == "Received" %}
-            <div class="status2" id="makeImg">受け取り完了</div>
-          {% endif %}
+          <div class="number"><span>{{data.number}}</span>本</div>
         </li>
         {% endfor %}
         
