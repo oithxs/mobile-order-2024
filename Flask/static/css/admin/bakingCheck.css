@@ -1,0 +1,38 @@
+body{
+    background-color: rgb(241, 241, 241);
+}
+
+.main{
+    padding: 10px;
+    align-content: center;
+    border: rgb(39, 165, 165) solid 3px;
+    margin: 30px;
+    text-align: center;
+}
+
+.logo{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: x-large;
+}
+
+.mes1{
+    font-size: xx-large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.mes2{
+    font-size: 500%;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.time{
+    font-weight: bold;
+}
+
+.btn{
+    margin: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+

@@ -25,37 +25,39 @@
     <main>
       {% if history_data %}
       <ul class="card-list">
-          {% for data in history_data|reverse %}
-            <li class="card-container" style="--white: true;">
-              <div class="history-card">
-                <div class="nickname">{{ data['nickname'] }}</div>
-                <div class="time">{{ data['reservationTime'] }}</div>
-                <div class="source">
-                  <div class="ketchap">
-                    ケチャップ: <!--半角空ける-->
-                    {% if data['ketchup'] == True %}
-                      <span>あり</span>
-                    {% else %}
-                      <span>なし</span>
-                    {% endif %}
-                  </div>
-                  <div class="mustard">
-                    マスタード: <!--半角空ける-->
-                    {% if data['mustard'] == True %}
-                      <span>あり</span>
-                    {% else %}
-                      <span>なし</span>
-                    {% endif %}
-                  </div>
-                </div>
-              <div class="number"><span>{{ data['count'] }}</span>本</div>
-              <!-- {% if data['status'] == "Receptable" %}
-                <div class="status" id="makeImg">受け取り待ち</div>
-              {% elif data['status'] == "Received" %}
-                <div class="status2" id="makeImg">受け取り完了</div>
-              {% endif %} -->
-            </li>
-          {% endfor %}
+        {% for data in history_data %}
+        <li class="card-container" style="--white: true;">
+          <div class="history-card">
+            <div class="nickname">{{data.name}}</div>
+            <div class="time">
+              予約時間: <!--半角空ける-->
+              {% if data.reservationTime == None %}
+              <span>即時</span>
+              {% else %}
+              <span>{{data.reservationTime}}</span>
+              {% endif %}
+            </div>
+            <div class="source">
+              <div class="ketchap">
+                ケチャップ: <!--半角空ける-->
+                {% if data.ketchup == True %}
+                  <span>あり</span>
+                {% else %}
+                  <span>なし</span>
+                {% endif %}
+              </div>
+              <div class="mustard">
+                マスタード: <!--半角空ける-->
+                {% if data.mustard == True %}
+                  <span>あり</span>
+                {% else %}
+                  <span>なし</span>
+                {% endif %}
+              </div>
+            </div>
+          <div class="number"><span>{{data.number}}</span>本</div>
+        </li>
+        {% endfor %}
       </ul>
 
       <button id="deleteAllHistory" class="deleteButton" type="button">履歴を削除</button>

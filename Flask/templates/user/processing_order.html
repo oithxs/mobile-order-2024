@@ -18,7 +18,8 @@
 
 {% block javascript %}
 <script>
-    const nickname = '{{ nickname }}';
+    const nickname = '{{ nickname.name }}';
+    console.log(nickname);
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/user/processing_order.js') }}"></script>
 {% endblock %}
