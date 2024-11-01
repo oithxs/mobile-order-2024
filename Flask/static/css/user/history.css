@@ -196,3 +196,9 @@ main {
     --shadow-strength: 5%;
   }
 }
+
+.noHistory{
+  color: #3b3b3b;
+  text-align: center;
+  margin-top: 40px;
+}
