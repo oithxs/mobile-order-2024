@@ -521,11 +521,15 @@ def count():
 def update():
     temp = 0
     while True:
-        #print(f"現在時刻:{nowTime()}")
         if(nowTime().minute != temp):
             temp = nowTime().minute
-            print("更新中")
-            count()
+            try:
+                count()
+            except:
+                print("何らかのトラブルが発生しました\n起動直後にはエラーが出ますが正常です．",flush=True)
+            else:
+                print(f"現在時刻:{nowTime()}",flush=True)
+                print("更新中",flush=True)
         time.sleep(1) 
             
 # 別スレッド起動
