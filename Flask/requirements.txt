@@ -10,3 +10,4 @@ PyMySQL
 python-dotenv
 cryptography
 SQLAlchemy
+uwsgi

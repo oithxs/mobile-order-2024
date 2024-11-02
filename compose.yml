@@ -6,7 +6,7 @@ services:
     depends_on:
       - mysql
     ports:
-      - "5000:5000"
+      - "8000:8000"
     environment:
       MYSQL_HOST: mysql
       TZ: Asia/Tokyo
@@ -15,6 +15,11 @@ services:
     volumes:
         - ./Flask:/usr/src/app
     init: true
+    entrypoint: >
+      sh -c "
+        cd /usr/src/app/ &&
+        uwsgi --ini uwsgi.ini
+      "
 
   mysql:
     image: mysql
@@ -22,8 +27,6 @@ services:
       - .env
     volumes:
       - sql-data:/var/lib/mysql
-    ports:
-      - 3306:3306
       
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
