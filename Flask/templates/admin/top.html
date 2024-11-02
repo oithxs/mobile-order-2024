@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>管理画面</title>
+{% extends "layout.html" %}
+
+    {% block css %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/top.css') }}">
-    </head>
-    <body>
+    {% endblock %}
+    {% block content %}
         <a href="/admin/open"><input type="button" class="delete-button"value="閉開店"></a>
-        <a href="/bakingCheck"><input type="button" class="delete-button"value="閉開店"></a>
+        <a href="/bakingCheck"><input type="button" class="called-button"value="通知画面"></a>
         <table>
             <thead>
                 <tr>
@@ -30,27 +27,28 @@
         <div id="message-window">
             <span id="message" class="highlight">削除</span>
         </div>
+{% endblock %}
 
-        <script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
-        <script>
-            const reservations = [];
-            // ！！！　↓のコメントを消さない↓　！！！
-            // {% for data in reservations %}
-            {
-                const reservation = {
-                    id: Number("{{ data['id'] }}"),
-                    name: "{{ data['name'] }}",
-                    number: Number("{{ data['number'] }}"),
-                    ketchup: ("{{ data['ketchup'] }}" == "True")? true : false,
-                    mustard: ("{{ data['mustard'] }}" == "True")? true : false,
-                    reservationTime: "{{ data['reservationTime'] }}",
-                    edit: false,
-                }
-                reservations.push(reservation);
-            }
-            // {% endfor %}
-            global_reservations = reservations;
-            print_table();
-        </script>
-    </body>
-</html>
+{% block javascript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/admin/top.js') }}"></script>
+<script>
+    const reservations = [];
+    // ！！！　↓のコメントを消さない↓　！！！
+    // {% for data in reservations %}
+    {
+        const reservation = {
+            id: Number("{{ data['id'] }}"),
+            name: "{{ data['name'] }}",
+            number: Number("{{ data['number'] }}"),
+            ketchup: ("{{ data['ketchup'] }}" == "True")? true : false,
+            mustard: ("{{ data['mustard'] }}" == "True")? true : false,
+            reservationTime: "{{ data['reservationTime'] }}",
+            edit: false,
+        }
+        reservations.push(reservation);
+    }
+    // {% endfor %}
+    global_reservations = reservations;
+    print_table();
+</script>
+{% endblock %}

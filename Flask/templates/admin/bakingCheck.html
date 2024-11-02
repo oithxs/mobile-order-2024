@@ -19,6 +19,10 @@
     <div class="d-grid btn">
         <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">リセット</button>
     </div>
+    <div class="recNum" id="recNum">
+        <p>受け取り本数</p>
+    </div>
+    <br>
     <div class="time" id="time">
         更新時刻
     </div>
@@ -48,6 +52,8 @@
     <script>
 
         const sound = new Audio("static/sound.mp3");
+
+        const sound2 = new Audio("static/sound2.mp3");
                 
 
         async function getData() {
@@ -65,12 +71,20 @@
 
                 const count = json.count
                 const time = json.time
+                const nowReservation = json.nowReservation
 
                 document.getElementById('num').innerText = `${count}本`
                 document.getElementById('time').innerText = `更新時刻:${time}`
 
+                document.getElementById('recNum').innerText = `受け取り本数：${nowReservation}本`
+
                 if(Number(json.count)>0){
                     sound.play();
+                }
+
+                if(Number(json.nowReservation)>0){
+                    sound2.play();
+                    alert(`受け取り本数が，${nowReservation}本あります．`);
                 }
 
             } catch (error) {

@@ -98,6 +98,8 @@ def backUpWrite(count :int):
     backUp.close()
     return "ok"
 
+# 現在時間における注文数
+nowReservation = 0
 
 # ---------------------------------------------------------------------------
 # /adminと/userの取得処理
@@ -274,6 +276,7 @@ def processing_order():
     if(request.form.get('isNicknameRegistered') == "true"):
         return redirect(url_for('result', nickname=request.form['nickname']))
     else:
+        global nowReservation
         # ニックネームをランダムで取り出す(import randomの記述お願いします)
         nicknameList = Nickname.query.all()
         nicknameList = [name for name in nicknameList if name.status==True]
@@ -294,6 +297,8 @@ def processing_order():
         if order_data['reservationTime'] != 'none':
             today = datetime.today()
             reservationTime = dt.strptime(today.strftime('%Y-%m-%d')+" "+order_data['reservationTime'], "%Y-%m-%d %H:%M")
+        else:
+            nowReservation += int(order_data['count'])
 
         add_reservation(nickname.name, int(order_data['count']), ketchup, mustard, reservationTime)
 
@@ -450,8 +455,27 @@ bakingNum = backUpRead()
 # 更新時刻を取得
 newTime = nowTime()
 
-# 現在の時刻に焼き始めなければならないフランクフルトの数を取得する関数
+# 現在の時刻における注文数を取得する関数
 from sqlalchemy import func
+def getNowReservation():
+    current_time = nowTime()
+
+
+    setHour = current_time.hour
+    setMinute = current_time.minute - 1
+
+    session = Session(autocommit=False,autoflush=True,bind=engine)
+
+
+    # 焼き始める必要がある予約の数を取得
+    frankfurts_to_start = session.query(func.sum(Reservation2.number)).filter(func.hour(Reservation2.reservationTime)==setHour,func.minute(Reservation2.reservationTime)==setMinute).scalar()
+    if(frankfurts_to_start==None):
+        return 0
+    
+    return frankfurts_to_start
+
+
+# 現在の時刻に焼き始めなければならないフランクフルトの数を取得する関数
 def get_frankfurts_to_start_baking():
     current_time = nowTime()
     bake_start_time = current_time + timedelta(minutes=bakingTime)
@@ -492,7 +516,6 @@ def count():
     # バックアップデータを書き込む
     backUpWrite(bakingNum)
     newTime = nowTime()
-    print(f"焼かなければならない数を更新しました: {bakingNum}本")
 
 # 自動更新関数を呼び出すスレッド
 def update():
@@ -557,7 +580,9 @@ def bakingCountReset():
 def getData():
     global bakingNum
     global newTime
-    data = {"count":f"{bakingNum}","time":f"{newTime.strftime('%Y/%m/%d %H:%M:%S')}"}
+    global nowReservation
+    data = {"count":f"{bakingNum}","time":f"{newTime.strftime('%Y/%m/%d %H:%M:%S')}","nowReservation":nowReservation}
+    nowReservation = 0
     return jsonify(data)
 
 
