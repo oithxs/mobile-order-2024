@@ -39,7 +39,7 @@ main{
 .pageButton span{
     text-decoration: none;
     color: #000000;
-    cursor: none;
+    cursor: pointer;
     font-size: 14px;
 }
 
